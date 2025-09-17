@@ -50,7 +50,7 @@ const Stack: React.FC<StackProps> = ({
     return (
         <div
             className={clsx(
-                "flex",
+                "flex w-full",
                 direction === "row" ? "flex-row" : "flex-col",
                 gapMap[gap],
                 alignMap[align],
