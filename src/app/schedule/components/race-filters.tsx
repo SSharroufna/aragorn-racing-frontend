@@ -1,255 +1,102 @@
-import * as React from "react";
-import { Search, Filter, X, ChevronDown, MapPin, Clock, DollarSign, Users } from "lucide-react";
+'use client';
 
-interface FilterProps {
-    filters: RaceFilters;
-    onFiltersChange: (filters: RaceFilters) => void;
-}
+import React, { useState, useMemo } from 'react';
+import { Badge } from '@/components/ui/badge';
+import { Slider } from '@/components/ui/slider';
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 
-interface RaceFilters {
-    search: string;
-    tracks: string[];
-    raceTypes: string[];
-    timeRange: string;
-    prizeRange: string;
-    distance: string[];
-}
+// Updated mock data with purse values
+const mockRaces = [
+    { surface: 'dirt', race_type: 'stakes', distance: '6f', track_condition: 'fast', purse: 100000 },
+    { surface: 'turf', race_type: 'allowance', distance: '1m', track_condition: 'firm', purse: 60000 },
+    { surface: 'dirt', race_type: 'claiming', distance: '7f', track_condition: 'muddy', purse: 30000 },
+    { surface: 'synthetic', race_type: 'stakes', distance: '1 1/8m', track_condition: 'good', purse: 120000 },
+    { surface: 'turf', race_type: 'maiden', distance: '5f', track_condition: 'yielding', purse: 50000 },
+    { surface: 'dirt', race_type: 'optional claiming', distance: '1m', track_condition: 'sloppy', purse: 45000 },
+];
 
-const RaceFilters: React.FC<FilterProps> = ({ filters, onFiltersChange }) => {
-    const [isExpanded, setIsExpanded] = React.useState(false);
+const initialFilters = {
+    surface: [],
+    race_type: [],
+    distance: [],
+    track_condition: [],
+    purse: [0, 150000], // slider range: [min, max]
+};
 
-    // Filter options
-    const trackOptions = [
-        "Saratoga", "Churchill Downs", "Belmont Park", "Santa Anita", "Del Mar", "Keeneland"
-    ];
+export default function FilterSidebar() {
+    const [filters, setFilters] = useState(initialFilters);
 
-    const raceTypeOptions = [
-        "Sprint", "Middle Distance", "Long Distance", "Turf", "Dirt", "All Weather"
-    ];
+    const filterOptions = useMemo(() => ({
+        surfaces: [...new Set(mockRaces.map(r => r.surface))],
+        race_types: [...new Set(mockRaces.map(r => r.race_type))],
+        distances: [...new Set(mockRaces.map(r => r.distance))],
+        track_conditions: [...new Set(mockRaces.map(r => r.track_condition))],
+        minPurse: Math.min(...mockRaces.map(r => r.purse)),
+        maxPurse: Math.max(...mockRaces.map(r => r.purse)),
+    }), []);
 
-    const timeRangeOptions = [
-        { value: "morning", label: "Morning (8AM - 12PM)" },
-        { value: "afternoon", label: "Afternoon (12PM - 6PM)" },
-        { value: "evening", label: "Evening (6PM - 10PM)" },
-        { value: "all", label: "All Day" }
-    ];
-
-    const prizeRangeOptions = [
-        { value: "under-10k", label: "Under $10K" },
-        { value: "10k-50k", label: "$10K - $50K" },
-        { value: "50k-100k", label: "$50K - $100K" },
-        { value: "over-100k", label: "Over $100K" },
-        { value: "all", label: "All Prizes" }
-    ];
-
-    const distanceOptions = [
-        "5-6 Furlongs", "6-7 Furlongs", "1 Mile", "1.25 Miles", "1.5 Miles", "2+ Miles"
-    ];
-
-    const updateFilter = (key: keyof RaceFilters, value: any) => {
-        onFiltersChange({ ...filters, [key]: value });
-    };
-
-    const toggleArrayFilter = (key: keyof RaceFilters, value: string) => {
-        const currentArray = filters[key] as string[];
-        const newArray = currentArray.includes(value)
-            ? currentArray.filter(item => item !== value)
-            : [...currentArray, value];
-        updateFilter(key, newArray);
-    };
-
-    const clearAllFilters = () => {
-        onFiltersChange({
-            search: "",
-            tracks: [],
-            raceTypes: [],
-            timeRange: "all",
-            prizeRange: "all",
-            distance: []
+    const toggleTag = (group: keyof typeof initialFilters, value: string) => {
+        setFilters(prev => {
+            const selected = prev[group as keyof typeof initialFilters] as string[];
+            const updated = selected.includes(value)
+                ? selected.filter(v => v !== value)
+                : [...selected, value];
+            return { ...prev, [group]: updated };
         });
     };
 
-    const getActiveFilterCount = () => {
-        let count = 0;
-        if (filters.search) count++;
-        if (filters.tracks.length > 0) count++;
-        if (filters.raceTypes.length > 0) count++;
-        if (filters.timeRange !== "all") count++;
-        if (filters.prizeRange !== "all") count++;
-        if (filters.distance.length > 0) count++;
-        return count;
+    const handlePurseChange = (values: number[]) => {
+        setFilters(prev => ({ ...prev, purse: values }));
     };
 
-    const activeFilterCount = getActiveFilterCount();
-
-    return (
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4">
-            {/* Header with search and toggle */}
-            <div className="flex items-center gap-3 mb-4">
-                <div className="relative flex-1">
-                    <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-                    <input
-                        type="text"
-                        placeholder="Search races, tracks, or horses..."
-                        value={filters.search}
-                        onChange={(e) => updateFilter("search", e.target.value)}
-                        className="w-full pl-10 pr-4 py-2.5 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    />
-                </div>
-
-                <button
-                    onClick={() => setIsExpanded(!isExpanded)}
-                    className={`
-                        flex items-center gap-2 px-3 py-2.5 text-sm font-medium rounded-lg transition-all duration-200
-                        ${isExpanded
-                        ? 'bg-blue-100 text-blue-700 border border-blue-200'
-                        : 'bg-gray-100 text-gray-700 border border-gray-200 hover:bg-gray-150'
-                    }
-                    `}
-                >
-                    <Filter size={16} />
-                    Filters
-                    {activeFilterCount > 0 && (
-                        <span className="bg-blue-500 text-white text-xs rounded-full px-1.5 py-0.5 min-w-[18px] text-center">
-                            {activeFilterCount}
-                        </span>
-                    )}
-                    <ChevronDown size={16} className={`transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`} />
-                </button>
+    const renderFilterGroup = (label: string, key: keyof typeof filterOptions, stateKey: keyof typeof initialFilters) => (
+        <div>
+            <div className="mb-2 font-semibold text-sm capitalize">{label}</div>
+            <div className="flex gap-2 flex-wrap">
+                {(filterOptions[key] || []).map((option: string) => (
+                    <Badge
+                        key={option}
+                        onClick={() => toggleTag(stateKey, option)}
+                        className={`cursor-pointer ${filters[stateKey].includes(option)
+                            ? 'bg-blue-500 text-white'
+                            : 'bg-gray-100 text-gray-700'}`}
+                    >
+                        {option}
+                    </Badge>
+                ))}
             </div>
-
-            {/* Expanded Filters */}
-            {isExpanded && (
-                <div className="space-y-4 pt-4 border-t border-gray-100">
-
-                    {/* Quick Actions */}
-                    {activeFilterCount > 0 && (
-                        <div className="flex justify-between items-center">
-                            <span className="text-sm text-gray-600">
-                                {activeFilterCount} filter{activeFilterCount !== 1 ? 's' : ''} applied
-                            </span>
-                            <button
-                                onClick={clearAllFilters}
-                                className="flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700 transition-colors"
-                            >
-                                <X size={14} />
-                                Clear all
-                            </button>
-                        </div>
-                    )}
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-
-                        {/* Track Selection */}
-                        <div>
-                            <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
-                                <MapPin size={16} className="text-gray-500" />
-                                Race Tracks
-                            </label>
-                            <div className="space-y-1.5">
-                                {trackOptions.map(track => (
-                                    <label key={track} className="flex items-center gap-2 cursor-pointer">
-                                        <input
-                                            type="checkbox"
-                                            checked={filters.tracks.includes(track)}
-                                            onChange={() => toggleArrayFilter("tracks", track)}
-                                            className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                                        />
-                                        <span className="text-sm text-gray-700">{track}</span>
-                                    </label>
-                                ))}
-                            </div>
-                        </div>
-
-                        {/* Race Types */}
-                        <div>
-                            <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
-                                <Users size={16} className="text-gray-500" />
-                                Race Types
-                            </label>
-                            <div className="space-y-1.5">
-                                {raceTypeOptions.map(type => (
-                                    <label key={type} className="flex items-center gap-2 cursor-pointer">
-                                        <input
-                                            type="checkbox"
-                                            checked={filters.raceTypes.includes(type)}
-                                            onChange={() => toggleArrayFilter("raceTypes", type)}
-                                            className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                                        />
-                                        <span className="text-sm text-gray-700">{type}</span>
-                                    </label>
-                                ))}
-                            </div>
-                        </div>
-
-                        {/* Time Range */}
-                        <div>
-                            <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
-                                <Clock size={16} className="text-gray-500" />
-                                Time of Day
-                            </label>
-                            <select
-                                value={filters.timeRange}
-                                onChange={(e) => updateFilter("timeRange", e.target.value)}
-                                className="w-full p-2.5 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white"
-                            >
-                                {timeRangeOptions.map(option => (
-                                    <option key={option.value} value={option.value}>
-                                        {option.label}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-
-                        {/* Prize Range */}
-                        <div>
-                            <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
-                                <DollarSign size={16} className="text-gray-500" />
-                                Prize Money
-                            </label>
-                            <select
-                                value={filters.prizeRange}
-                                onChange={(e) => updateFilter("prizeRange", e.target.value)}
-                                className="w-full p-2.5 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white"
-                            >
-                                {prizeRangeOptions.map(option => (
-                                    <option key={option.value} value={option.value}>
-                                        {option.label}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-
-                    </div>
-
-                    {/* Distance - Full Width */}
-                    <div>
-                        <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
-                            Distance
-                        </label>
-                        <div className="flex flex-wrap gap-2">
-                            {distanceOptions.map(distance => (
-                                <button
-                                    key={distance}
-                                    onClick={() => toggleArrayFilter("distance", distance)}
-                                    className={`
-                                        px-3 py-1.5 text-sm rounded-lg border transition-all duration-200
-                                        ${filters.distance.includes(distance)
-                                        ? 'bg-blue-100 text-blue-700 border-blue-300'
-                                        : 'bg-gray-50 text-gray-700 border-gray-200 hover:bg-gray-100'
-                                    }
-                                    `}
-                                >
-                                    {distance}
-                                </button>
-                            ))}
-                        </div>
-                    </div>
-
-                </div>
-            )}
         </div>
     );
-};
 
-export default RaceFilters;
+    return (
+        <Card>
+            <CardHeader>
+                <CardTitle>Filter Races</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-6">
+                {renderFilterGroup('Surface', 'surfaces', 'surface')}
+                {renderFilterGroup('Race Type', 'race_types', 'race_type')}
+                {renderFilterGroup('Distance', 'distances', 'distance')}
+                {renderFilterGroup('Track Condition', 'track_conditions', 'track_condition')}
+
+                {/* Purse Range Slider */}
+                <div>
+                    <div className="mb-2 font-semibold text-sm capitalize">Purse Amount</div>
+                    <div className="px-2">
+                        <Slider
+                            min={filterOptions.minPurse}
+                            max={filterOptions.maxPurse}
+                            step={5000}
+                            value={filters.purse}
+                            onValueChange={handlePurseChange}
+                        />
+                        <div className="flex justify-between text-sm text-gray-600 mt-2">
+                            <span>${filters.purse[0].toLocaleString()}</span>
+                            <span>${filters.purse[1].toLocaleString()}</span>
+                        </div>
+                    </div>
+                </div>
+            </CardContent>
+        </Card>
+    );
+}

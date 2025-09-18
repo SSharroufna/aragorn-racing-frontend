@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/select" // Adjust path based on your folder structure
 
 const tracks = [
+    { id: "All Tracks", name: "All Tracks" },
     { id: "saratoga", name: "Saratoga" },
     { id: "belmont", name: "Belmont Park" },
     { id: "churchill", name: "Churchill Downs" },
@@ -17,17 +18,13 @@ const tracks = [
 ]
 
 export default function TrackSelect() {
-    const [selectedTrack, setSelectedTrack] = React.useState<string>(tracks[0].id)
+    const [selectedTrack, setSelectedTrack] = React.useState<string>("")
 
     return (
-        <div className="flex flex-col gap-2">
-            <label htmlFor="track-select" className="text-sm font-medium text-muted-foreground">
-                Select Track
-            </label>
-
+        <div className="flex gap-2">
             <Select value={selectedTrack} onValueChange={setSelectedTrack}>
-                <SelectTrigger id="track-select" className="w-64">
-                    <SelectValue placeholder="Choose a track" />
+                <SelectTrigger id="track-select" className="w-80 bg-white">
+                    <SelectValue placeholder="Select a track" />
                 </SelectTrigger>
 
                 <SelectContent>
