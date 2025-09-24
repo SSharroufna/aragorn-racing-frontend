@@ -1,8 +1,5 @@
-// app/layout.tsx - Updated version of your existing layout
+// components/AuthLayout.tsx
 "use client";
-
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
 
 import { AuthProvider, useAuth } from "react-oidc-context";
 import { useEffect } from "react";
@@ -11,16 +8,6 @@ import PublicNavbar from "@/features/marketing/public-navbar";
 import ProtectedNavbar from "@/features/components/nav-bar";
 import PageWrapper from "@/features/components/layout/page-wrapper";
 import { PendingActionsProvider, usePendingActions } from "@/app/contexts/PendingActionsContext";
-
-const geistSans = Geist({
-    variable: "--font-geist-sans",
-    subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-    variable: "--font-geist-mono",
-    subsets: ["latin"],
-});
 
 const cognitoAuthConfig = {
     authority: "https://cognito-idp.us-east-2.amazonaws.com/us-east-2_ClpUoncQL",
@@ -45,11 +32,9 @@ function LayoutWithAuth({ children }: { children: React.ReactNode }) {
                     setPendingAction(action);
 
                     // Clean up URL by removing the action parameter
-                    if (typeof window !== 'undefined') {
-                        const url = new URL(window.location.href);
-                        url.searchParams.delete('action');
-                        window.history.replaceState({}, '', url.toString());
-                    }
+                    const url = new URL(window.location.href);
+                    url.searchParams.delete('action');
+                    window.history.replaceState({}, '', url.toString());
                 } catch (error) {
                     console.error('Failed to parse pending action:', error);
                 }
@@ -57,12 +42,12 @@ function LayoutWithAuth({ children }: { children: React.ReactNode }) {
         }
     }, [auth?.isAuthenticated, searchParams, setPendingAction]);
 
-    if (auth?.isLoading) return <div className="p-8">Loading...</div>;
-    if (auth?.error) return <div className="p-8 text-red-500">Error: {auth.error.message}</div>;
+    if (!auth || auth.isLoading) return <div className="p-8">Loading...</div>;
+    if (auth.error) return <div className="p-8 text-red-500">Error: {auth.error.message}</div>;
 
     return (
         <>
-            {auth?.isAuthenticated ? <ProtectedNavbar /> : <PublicNavbar />}
+            {auth.isAuthenticated ? <ProtectedNavbar /> : <PublicNavbar />}
             <PageWrapper>
                 {children}
             </PageWrapper>
@@ -70,22 +55,12 @@ function LayoutWithAuth({ children }: { children: React.ReactNode }) {
     );
 }
 
-export default function RootLayout({
-                                       children,
-                                   }: {
-    children: React.ReactNode;
-}) {
+export default function AuthLayout({ children }: { children: React.ReactNode }) {
     return (
-        <html lang="en">
-        <body
-            className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50`}
-        >
         <AuthProvider {...cognitoAuthConfig}>
             <PendingActionsProvider>
                 <LayoutWithAuth>{children}</LayoutWithAuth>
             </PendingActionsProvider>
         </AuthProvider>
-        </body>
-        </html>
     );
 }

@@ -2,8 +2,6 @@
 import { ReactNode } from "react";
 import { AuthProvider, useAuth } from "react-oidc-context";
 import { useRouter } from "next/navigation";
-import ProtectedNavbar from "@/features/components/nav-bar";
-import PageWrapper from "@/features/components/layout/page-wrapper";
 
 const cognitoAuthConfig = {
     authority: "https://cognito-idp.us-east-2.amazonaws.com/us-east-2_ClpUoncQL",

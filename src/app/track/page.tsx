@@ -5,11 +5,12 @@ import RaceSidebar from "@/app/track/components/left-sidebar";
 import RaceDetails from "@/app/track/components/race-details";
 
 import TrackHeader from "@/app/track/components/track-header";
+import { Race } from "@/features/types"
 
 // Sample races data
-const sampleRaces = [
+const sampleRaces: Race[] = [
     {
-        id: "race001",
+        id: "1",
         race: "Florida Downs Stakes",
         horses: 12,
         date: "2025-09-23",
@@ -19,7 +20,7 @@ const sampleRaces = [
         purse: 5000,
     },
     {
-        id: "race002",
+        id: "2",
         race: "Sunshine Cup",
         horses: 10,
         date: "2025-09-23",
@@ -29,7 +30,7 @@ const sampleRaces = [
         purse: 4500,
     },
     {
-        id: "race003",
+        id: "3",
         race: "Derby Challenge",
         horses: 8,
         date: "2025-09-23",
@@ -39,7 +40,7 @@ const sampleRaces = [
         purse: 6000,
     },
     {
-        id: "race004",
+        id: "4",
         race: "Autumn Classic",
         horses: 14,
         date: "2025-09-23",
@@ -49,7 +50,7 @@ const sampleRaces = [
         purse: 7500,
     },
     {
-        id: "race005",
+        id: "5",
         race: "Golden Sprint",
         horses: 9,
         date: "2025-09-23",
@@ -59,7 +60,7 @@ const sampleRaces = [
         purse: 3000,
     },
     {
-        id: "race006",
+        id: "6",
         race: "Champion’s Cup",
         horses: 11,
         date: "2025-09-23",
@@ -69,7 +70,7 @@ const sampleRaces = [
         purse: 5500,
     },
     {
-        id: "race007",
+        id: "7",
         race: "Royal Turf Challenge",
         horses: 12,
         date: "2025-09-23",
@@ -79,7 +80,7 @@ const sampleRaces = [
         purse: 6200,
     },
     {
-        id: "race008",
+        id: "8",
         race: "Evening Stakes",
         horses: 8,
         date: "2025-09-23",
@@ -89,7 +90,7 @@ const sampleRaces = [
         purse: 4800,
     },
     {
-        id: "race009",
+        id: "9",
         race: "Sunset Derby",
         horses: 10,
         date: "2025-09-23",
@@ -99,7 +100,7 @@ const sampleRaces = [
         purse: 7000,
     },
     {
-        id: "race010",
+        id: "10",
         race: "Champion Sprint",
         horses: 9,
         date: "2025-09-23",
@@ -118,7 +119,7 @@ export default function TrackDetailsPage() {
             {/* Breadcrumbs */}
             <TrackHeader/>
 
-            <div className="flex gap-6 h-[600px]">
+            <div className="flex flex-col gap-6 h-[600px] md:flex-row">
                 <RaceSidebar
                     races={sampleRaces}
                     selectedRace={selectedRace}

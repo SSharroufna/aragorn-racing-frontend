@@ -1,15 +1,15 @@
 'use client';
 
 import * as React from "react";
-import { Download } from "lucide-react";
 import { Button } from "@/features/components/ui/button";
 import { Card } from "@/features/components/ui/card";
-import { Input } from "@/features/components/ui/input";
+// import { Input } from "@/features/components/ui/input";
 import LayoutDisplay from "@/app/schedule/components/layout-display";
 import RacesTable  from "./races-table";
 import RacesGrid from "@/app/schedule/components/race-cards-grid";
+import { Eye, Ticket } from "lucide-react";
 
-// Mock filtered races for now (can be passed in as props in real scenario)
+
 const filteredRaces = [
     { id: 1, name: "Race 1", purse: 100000 },
     { id: 2, name: "Race 2", purse: 80000 },
@@ -21,12 +21,12 @@ export function AvailableRaces() {
 
     return (
         <Card className="p-10 space-y-4">
-            <div className="flex flex-col md:flex-row md:items-center gap-4">
-                <Input placeholder="Search races..." />
+            <div className="flex justify-between md:flex-row md:items-center gap-4">
+                <h2 className="text-2xl font-bold min-h-2xl">Digital Downs races</h2>
                 <LayoutDisplay layout={layout} setLayout={setLayout} total={filteredRaces.length} />
             </div>
 
-
+            {/*<Input placeholder="Search races..." />*/}
                 {layout === "list" ? (
                         <div className="overflow-hidden rounded-md border">
                     <RacesTable />
@@ -42,7 +42,11 @@ export function AvailableRaces() {
                 </div>
                 <div className="space-x-2">
                     <Button variant="outline" size="sm">
-                        <Download className="mr-2 h-4 w-4" />
+                        <Eye className="h-4 w-4" />
+                        View All
+                    </Button>
+                    <Button  size="sm">
+                        <Ticket className=" h-4 w-4" />
                         Buy All
                     </Button>
                 </div>

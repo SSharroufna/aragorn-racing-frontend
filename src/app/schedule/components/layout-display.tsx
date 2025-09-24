@@ -9,7 +9,7 @@ interface LayoutDisplayProps {
 
 const LayoutDisplay = ({ layout, setLayout }: LayoutDisplayProps) => {
     return (
-        <div className="flex flex-col md:flex-row justify-end items-center gap-4 w-full">
+        <div className="flex flex-col md:flex-row items-center gap-4">
             <div className="flex gap-1 bg-gray-100 rounded-lg p-1">
                 <Button
                     variant={layout === "grid" ? "default" : "ghost"}
