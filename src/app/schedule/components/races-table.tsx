@@ -16,91 +16,84 @@ import {
     TableRow,
 } from '@/features/components/ui/table';
 import { Eye, Download } from 'lucide-react';
-
-export type Race = {
-    id: string;
-    race: string;
-    date: string;
-    time: string;
-    distance: string;
-    surface: 'dirt' | 'turf' | 'synthetic';
-    purse: number;
-};
+import { Race } from '@/features/types';
+import { useRouter } from 'next/navigation';
 
 const data: Race[] = [
     {
         id: 'race001',
-        race: 'Kentucky Derby',
-        date: '2024-05-04',
-        time: '18:57',
-        distance: '1.25 miles',
-        surface: 'dirt',
-        purse: 3000000,
+        race: 'Florida Downs Stakes',
+        date: '2025-09-23',
+        time: '12:00',
+        distance: '1 mile',
+        surface: 'turf',
+        purse: 5000,
     },
     {
         id: 'race002',
-        race: 'Preakness Stakes',
-        date: '2024-05-18',
-        time: '19:01',
-        distance: '1.1875 miles',
-        surface: 'dirt',
-        purse: 1650000,
+        race: 'Sunshine Cup',
+        date: '2025-09-23',
+        time: '12:30',
+        distance: '1.125 miles',
+        surface: 'turf',
+        purse: 4500,
     },
     {
         id: 'race003',
-        race: 'Belmont Stakes',
-        date: '2024-06-08',
-        time: '17:45',
-        distance: '1.5 miles',
-        surface: 'dirt',
-        purse: 1500000,
+        race: 'Derby Challenge',
+        date: '2025-09-23',
+        time: '13:00',
+        distance: '1.25 miles',
+        surface: 'turf',
+        purse: 6000,
     },
     {
         id: 'race004',
-        race: "Breeders' Cup Classic",
-        date: '2024-11-02',
-        time: '20:30',
-        distance: '1.25 miles',
-        surface: 'dirt',
-        purse: 6000000,
+        race: 'Autumn Classic',
+        date: '2025-09-23',
+        time: '13:30',
+        distance: '1 mile',
+        surface: 'turf',
+        purse: 3500,
     },
     {
         id: 'race005',
-        race: 'Travers Stakes',
-        date: '2024-08-24',
-        time: '17:40',
-        distance: '1.25 miles',
-        surface: 'dirt',
-        purse: 1250000,
+        race: 'Champion’s Cup',
+        date: '2025-09-23',
+        time: '14:00',
+        distance: '1.5 miles',
+        surface: 'turf',
+        purse: 7000,
     },
     {
         id: 'race006',
-        race: 'Dubai World Cup',
-        date: '2024-03-30',
-        time: '19:00',
-        distance: '1.25 miles',
-        surface: 'dirt',
-        purse: 12000000,
+        race: 'Florida Downs Sprint',
+        date: '2025-09-23',
+        time: '14:30',
+        distance: '0.75 miles',
+        surface: 'turf',
+        purse: 3000,
     },
     {
         id: 'race007',
-        race: 'Royal Ascot Gold Cup',
-        date: '2024-06-20',
-        time: '15:20',
-        distance: '2.5 miles',
+        race: 'Turf Masters',
+        date: '2025-09-23',
+        time: '15:00',
+        distance: '1.125 miles',
         surface: 'turf',
-        purse: 700000,
+        purse: 4000,
     },
     {
         id: 'race008',
-        race: 'Epsom Derby',
-        date: '2024-06-01',
-        time: '16:30',
-        distance: '1.5 miles',
+        race: 'Golden Turf Stakes',
+        date: '2025-09-23',
+        time: '15:30',
+        distance: '1.25 miles',
         surface: 'turf',
-        purse: 2000000,
+        purse: 6500,
     },
 ];
+
 
 const columns: ColumnDef<Race>[] = [
     {
@@ -168,6 +161,8 @@ const columns: ColumnDef<Race>[] = [
 ];
 
 const RacesTable = () => {
+    const router = useRouter();
+
     const table = useReactTable({
         data,
         columns,
@@ -195,16 +190,17 @@ const RacesTable = () => {
             <TableBody>
                 {table.getRowModel().rows.length ? (
                     table.getRowModel().rows.map(row => (
-                        <TableRow key={row.id}>
-                            {row.getVisibleCells().map(cell => (
-                                <TableCell key={cell.id}>
-                                    {flexRender(
-                                        cell.column.columnDef.cell,
-                                        cell.getContext()
-                                    )}
-                                </TableCell>
-                            ))}
-                        </TableRow>
+                    <TableRow
+                    key={row.id}
+                className="cursor-pointer hover:bg-gray-100"
+                onClick={() => router.push(`/track`)}
+            >
+                {row.getVisibleCells().map((cell) => (
+                    <TableCell key={cell.id}>
+                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    </TableCell>
+                ))}
+            </TableRow>
                     ))
                 ) : (
                     <TableRow>

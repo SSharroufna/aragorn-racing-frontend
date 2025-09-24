@@ -1,6 +1,5 @@
 import React from "react";
 import RecentPurchases from "./components/recent-purchases";
-import PageWrapper from "@/features/components/layout/page-wrapper";
 import QuickActions from "./components/quick-actions";
 
 const Dashboard = () => {
@@ -25,7 +24,6 @@ const Dashboard = () => {
                 <div className="space-y-6">
                     {/* Quick Actions */}
                     <QuickActions />
-
                 </div>
             </div>
         </div>

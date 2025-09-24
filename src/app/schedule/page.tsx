@@ -1,11 +1,11 @@
 'use client';
 
 import { useState } from "react";
-import RacesCalendar from "@/app/(marketing)/schedule/components/races-calendar";
+import RacesCalendar from "@/app/schedule/components/races-calendar";
 import PageWrapper from "@/features/components/layout/page-wrapper";
 import Stack from "@/features/components/layout/stack";
 import FilterSidebar from "./components/race-filters";
-import TrackSelect from "@/app/(marketing)/schedule/components/track-select";
+import TrackSelect from "@/app/schedule/components/track-select";
 import {AvailableRaces} from "./components/available-races"
 
 const initialFilters = {
@@ -28,7 +28,6 @@ export default function RaceSchedule() {
     ];
 
     return (
-        <PageWrapper>
             <Stack gap={'md'}>
                 <h1 className="text-2xl font-semibold">Find Races</h1>
 
@@ -46,6 +45,5 @@ export default function RaceSchedule() {
                     <AvailableRaces/>
                 </Stack>
             </Stack>
-        </PageWrapper>
 )
 }

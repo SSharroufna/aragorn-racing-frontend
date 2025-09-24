@@ -5,9 +5,9 @@ import { Download } from "lucide-react";
 import { Button } from "@/features/components/ui/button";
 import { Card } from "@/features/components/ui/card";
 import { Input } from "@/features/components/ui/input";
-import LayoutDisplay from "@/app/(marketing)/schedule/components/layout-display";
+import LayoutDisplay from "@/app/schedule/components/layout-display";
 import RacesTable  from "./races-table";
-import RacesGrid from "@/app/(marketing)/schedule/components/race-cards-grid";
+import RacesGrid from "@/app/schedule/components/race-cards-grid";
 
 // Mock filtered races for now (can be passed in as props in real scenario)
 const filteredRaces = [

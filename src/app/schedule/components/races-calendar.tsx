@@ -11,7 +11,7 @@ import {
     CardHeader,
     CardTitle,
 } from "@/features/components/ui/card";
-import TrackSelect from "@/app/(marketing)/schedule/components/track-select";
+import TrackSelect from "@/app/schedule/components/track-select";
 
 const RacesCalendar = () => {
     const [date, setDate] = React.useState<Date | undefined>(

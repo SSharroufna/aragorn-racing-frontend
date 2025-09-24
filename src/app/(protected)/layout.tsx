@@ -27,9 +27,7 @@ function ProtectedWrapper({ children }: { children: ReactNode }) {
     return (
         <>
             {/*<ProtectedNavbar />*/}
-            <PageWrapper>
             {children}
-            </PageWrapper>
         </>
     );
 }

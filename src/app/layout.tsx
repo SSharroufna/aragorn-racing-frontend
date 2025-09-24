@@ -1,12 +1,13 @@
 "use client";
 
-import type { Metadata } from "next";
+
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
 import { AuthProvider, useAuth } from "react-oidc-context";
 import PublicNavbar from "@/features/marketing/public-navbar";
 import ProtectedNavbar from "@/features/components/nav-bar";
+import PageWrapper from "@/features/components/layout/page-wrapper";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -35,7 +36,9 @@ function LayoutWithAuth({ children }: { children: React.ReactNode }) {
     return (
         <>
             {auth.isAuthenticated ? <ProtectedNavbar /> : <PublicNavbar />}
+            <PageWrapper>
             {children}
+            </PageWrapper>
         </>
     );
 }
