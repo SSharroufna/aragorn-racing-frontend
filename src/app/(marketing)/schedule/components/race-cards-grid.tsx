@@ -1,9 +1,9 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/features/components/ui/card";
+import { Checkbox } from "@/features/components/ui/checkbox";
+import { Badge } from "@/features/components/ui/badge";
 import { Trophy, Users, MapPin } from 'lucide-react';
 
 // Mock race data

@@ -1,8 +1,8 @@
 'use client';
 
 import * as React from "react";
-import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
+import { Button } from "@/features/components/ui/button";
+import { Calendar } from "@/features/components/ui/calendar";
 import {
     Card,
     CardAction,
@@ -10,8 +10,8 @@ import {
     CardDescription,
     CardHeader,
     CardTitle,
-} from "@/components/ui/card";
-import TrackSelect from "@/app/schedule/components/track-select";
+} from "@/features/components/ui/card";
+import TrackSelect from "@/app/(marketing)/schedule/components/track-select";
 
 const RacesCalendar = () => {
     const [date, setDate] = React.useState<Date | undefined>(

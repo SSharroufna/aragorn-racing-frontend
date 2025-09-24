@@ -1,9 +1,9 @@
 'use client';
 
 import React, { useState, useMemo } from 'react';
-import { Badge } from '@/components/ui/badge';
-import { Slider } from '@/components/ui/slider';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+import { Badge } from '@/features/components/ui/badge';
+import { Slider } from '@/features/components/ui/slider';
+import { Card, CardHeader, CardTitle, CardContent } from '@/features/components/ui/card';
 
 // Updated mock data with purse values
 const mockRaces = [

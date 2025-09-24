@@ -2,12 +2,12 @@
 
 import * as React from "react";
 import { Download } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import LayoutDisplay from "@/app/schedule/components/layout-display";
+import { Button } from "@/features/components/ui/button";
+import { Card } from "@/features/components/ui/card";
+import { Input } from "@/features/components/ui/input";
+import LayoutDisplay from "@/app/(marketing)/schedule/components/layout-display";
 import RacesTable  from "./races-table";
-import RacesGrid from "@/app/schedule/components/race-cards-grid";
+import RacesGrid from "@/app/(marketing)/schedule/components/race-cards-grid";
 
 // Mock filtered races for now (can be passed in as props in real scenario)
 const filteredRaces = [
@@ -20,7 +20,7 @@ export function AvailableRaces() {
     const [layout, setLayout] = React.useState<"grid" | "list">("list");
 
     return (
-        <Card className="p-4 space-y-4">
+        <Card className="p-10 space-y-4">
             <div className="flex flex-col md:flex-row md:items-center gap-4">
                 <Input placeholder="Search races..." />
                 <LayoutDisplay layout={layout} setLayout={setLayout} total={filteredRaces.length} />
@@ -43,7 +43,7 @@ export function AvailableRaces() {
                 <div className="space-x-2">
                     <Button variant="outline" size="sm">
                         <Download className="mr-2 h-4 w-4" />
-                        Download Selected
+                        Buy All
                     </Button>
                 </div>
             </div>

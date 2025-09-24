@@ -7,7 +7,7 @@ import {
     SelectContent,
     SelectItem,
     SelectValue,
-} from "@/components/ui/select" // Adjust path based on your folder structure
+} from "@/features/components/ui/select" // Adjust path based on your folder structure
 
 const tracks = [
     { id: "All Tracks", name: "All Tracks" },

@@ -1,11 +1,11 @@
 'use client';
 
 import { useState } from "react";
-import RacesCalendar from "@/app/schedule/components/races-calendar";
-import PageWrapper from "@/components/layout/page-wrapper";
-import Stack from "@/components/layout/stack";
+import RacesCalendar from "@/app/(marketing)/schedule/components/races-calendar";
+import PageWrapper from "@/features/components/layout/page-wrapper";
+import Stack from "@/features/components/layout/stack";
 import FilterSidebar from "./components/race-filters";
-import TrackSelect from "@/app/schedule/components/track-select";
+import TrackSelect from "@/app/(marketing)/schedule/components/track-select";
 import {AvailableRaces} from "./components/available-races"
 
 const initialFilters = {
@@ -20,7 +20,6 @@ const initialFilters = {
 export default function RaceSchedule() {
     const [filters, setFilters] = useState(initialFilters);
 
-    // Mock races data
     const mockRaces = [
         { surface: 'dirt', race_type: 'maiden_claiming' },
         { surface: 'turf', race_type: 'allowance' },
@@ -30,8 +29,8 @@ export default function RaceSchedule() {
 
     return (
         <PageWrapper>
-            <Stack>
-                <h1 className="text-2xl font-semibold"> Browse Races</h1>
+            <Stack gap={'md'}>
+                <h1 className="text-2xl font-semibold">Find Races</h1>
 
                 <Stack direction={'row'}>
                     <div className="flex-2 basis-2/4">
@@ -43,7 +42,7 @@ export default function RaceSchedule() {
                 </Stack>
 
                 <Stack>
-                    <h1 className="text-2xl font-semibold"> Available Races</h1>
+                    <h1 className="text-2xl font-semibold">Available Races</h1>
                     <AvailableRaces/>
                 </Stack>
             </Stack>

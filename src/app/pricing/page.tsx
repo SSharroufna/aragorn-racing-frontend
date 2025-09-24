@@ -1,13 +1,14 @@
 'use client';
 import React, { useState } from 'react';
 import { Crown, ShoppingCart, Check, Minus, Plus } from 'lucide-react';
-import { Card, CardHeader, CardTitle, CardContent, CardFooter, CardDescription } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Switch } from '@/components/ui/switch';
-import { Label } from '@/components/ui/label';
-import { Badge } from '@/components/ui/badge';
-import { Input } from '@/components/ui/input';
+import { Card, CardHeader, CardTitle, CardContent, CardFooter, CardDescription } from '@/features/components/ui/card';
+import { Button } from '@/features/components/ui/button';
+import { Switch } from '@/features/components/ui/switch';
+import { Label } from '@/features/components/ui/label';
+import { Badge } from '@/features/components/ui/badge';
+import { Input } from '@/features/components/ui/input';
 import { useRouter } from 'next/navigation';
+import PageWrapper from "@/features/components/layout/page-wrapper";
 
 
 export default function PricingPage() {
@@ -24,6 +25,7 @@ export default function PricingPage() {
     ];
 
     return (
+        <PageWrapper>
         <div className="space-y-12">
             {/* Header */}
             <div className="text-center">
@@ -152,5 +154,6 @@ export default function PricingPage() {
                 </Card>
             </div>
         </div>
+        </PageWrapper>
     );
 }

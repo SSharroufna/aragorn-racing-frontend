@@ -14,7 +14,8 @@ import {
     TableHead,
     TableHeader,
     TableRow,
-} from '@/components/ui/table';
+} from '@/features/components/ui/table';
+import { Eye, Download } from 'lucide-react';
 
 export type Race = {
     id: string;
@@ -45,10 +46,70 @@ const data: Race[] = [
         surface: 'dirt',
         purse: 1650000,
     },
-    // ... (include rest of the races)
+    {
+        id: 'race003',
+        race: 'Belmont Stakes',
+        date: '2024-06-08',
+        time: '17:45',
+        distance: '1.5 miles',
+        surface: 'dirt',
+        purse: 1500000,
+    },
+    {
+        id: 'race004',
+        race: "Breeders' Cup Classic",
+        date: '2024-11-02',
+        time: '20:30',
+        distance: '1.25 miles',
+        surface: 'dirt',
+        purse: 6000000,
+    },
+    {
+        id: 'race005',
+        race: 'Travers Stakes',
+        date: '2024-08-24',
+        time: '17:40',
+        distance: '1.25 miles',
+        surface: 'dirt',
+        purse: 1250000,
+    },
+    {
+        id: 'race006',
+        race: 'Dubai World Cup',
+        date: '2024-03-30',
+        time: '19:00',
+        distance: '1.25 miles',
+        surface: 'dirt',
+        purse: 12000000,
+    },
+    {
+        id: 'race007',
+        race: 'Royal Ascot Gold Cup',
+        date: '2024-06-20',
+        time: '15:20',
+        distance: '2.5 miles',
+        surface: 'turf',
+        purse: 700000,
+    },
+    {
+        id: 'race008',
+        race: 'Epsom Derby',
+        date: '2024-06-01',
+        time: '16:30',
+        distance: '1.5 miles',
+        surface: 'turf',
+        purse: 2000000,
+    },
 ];
 
 const columns: ColumnDef<Race>[] = [
+    {
+        header: 'No.',
+        accessorFn: (_row, index) => index + 1,
+        cell: info => (
+            <span className="block">{info.getValue() as number}</span>
+        ),
+    },
     {
         header: 'Race',
         accessorKey: 'race',
@@ -79,6 +140,30 @@ const columns: ColumnDef<Race>[] = [
             `$${Number(info.getValue()).toLocaleString(undefined, {
                 maximumFractionDigits: 0,
             })}`,
+    },
+    {
+        header: 'Actions',
+        id: 'actions',
+        cell: info => (
+            <div className="flex gap-2">
+                <button
+                    type="button"
+                    className="hover:bg-blue-100 rounded"
+                    aria-label="View"
+                    onClick={() => alert(`View ${info.row.original.race}`)}
+                >
+                    <Eye size={18} />
+                </button>
+                <button
+                    type="button"
+                    className="hover:bg-green-100 rounded"
+                    aria-label="Download"
+                    onClick={() => alert(`Download ${info.row.original.race}`)}
+                >
+                    <Download size={18} />
+                </button>
+            </div>
+        ),
     },
 ];
 
@@ -123,7 +208,10 @@ const RacesTable = () => {
                     ))
                 ) : (
                     <TableRow>
-                        <TableCell colSpan={columns.length} className="h-24 text-center">
+                        <TableCell
+                            colSpan={columns.length}
+                            className="h-24 text-center"
+                        >
                             No results.
                         </TableCell>
                     </TableRow>

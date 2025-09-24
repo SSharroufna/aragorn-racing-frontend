@@ -1,9 +1,9 @@
 import React from 'react';
 import { ArrowLeft, CreditCard, Lock, Shield } from 'lucide-react';
-import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/features/components/ui/card';
+import { Button } from '@/features/components/ui/button';
+import { Input } from '@/features/components/ui/input';
+import { Label } from '@/features/components/ui/label';
 
 export default function CheckoutPage() {
     // Static fake data for demonstration

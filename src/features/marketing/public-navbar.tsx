@@ -11,24 +11,17 @@ import {
     SheetHeader,
     SheetTitle,
     SheetTrigger,
-} from "@/components/ui/sheet"
+} from "@/features/components/ui/sheet"
 
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-
-import { Button } from "@/components/ui/button"
+import { Button } from "@/features/components/ui/button"
 
 const navLinks = [
-    { name: "Dashboard", href: "/" },
-    { name: "Races Schedule", href: "/schedule" },
+    { name: "Find Races", href: "/schedule" },
     { name: "Pricing", href: "/pricing" },
+    { name: "Contact Us", href: "/contact" },
 ]
 
-export default function Navbar() {
+export default function PublicNavbar() {
     const pathname = usePathname()
 
     return (
@@ -65,20 +58,12 @@ export default function Navbar() {
                     </div>
 
                     {/* Right: Profile dropdown */}
-                    <div className="flex items-center">
-                        <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                                <Button variant="ghost" size="icon">
-                                    <User className="h-6 w-6 text-gray-700" />
-                                </Button>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end">
-                                <DropdownMenuItem>Profile</DropdownMenuItem>
-                                <DropdownMenuItem>Settings</DropdownMenuItem>
-                                <DropdownMenuItem>Logout</DropdownMenuItem>
-                            </DropdownMenuContent>
-                        </DropdownMenu>
-                    </div>
+                    <Link
+                        href="/login"
+                        className="text-sm text-orange-600 hover:underline"
+                    >
+                        Login
+                    </Link>
                 </div>
             </div>
         </nav>
