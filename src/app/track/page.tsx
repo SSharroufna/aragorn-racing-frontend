@@ -6,6 +6,7 @@ import RaceDetails from "@/app/track/components/race-details";
 
 import TrackHeader from "@/app/track/components/track-header";
 import { Race } from "@/features/types"
+import Image from "next/image";
 
 // Sample races data
 const sampleRaces: Race[] = [
@@ -119,7 +120,9 @@ export default function TrackDetailsPage() {
             {/* Breadcrumbs */}
             <TrackHeader/>
 
-            <div className="flex flex-col gap-6 h-[600px] md:flex-row">
+            {/*<Image src="/horseracing_banner.jpg" alt="Digital Downs" width={1200} height={100} className="rounded"/>*/}
+
+            <div className="flex flex-col gap-6 h-[900px] md:flex-row">
                 <RaceSidebar
                     races={sampleRaces}
                     selectedRace={selectedRace}
@@ -127,6 +130,7 @@ export default function TrackDetailsPage() {
                 />
                 <RaceDetails race={selectedRace} />
             </div>
+
         </div>
     );
 }

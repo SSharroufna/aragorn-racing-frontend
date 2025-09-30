@@ -3,12 +3,11 @@
 import * as React from "react";
 import { Button } from "@/features/components/ui/button";
 import { Card } from "@/features/components/ui/card";
-// import { Input } from "@/features/components/ui/input";
 import LayoutDisplay from "@/app/schedule/components/layout-display";
 import RacesTable  from "./races-table";
 import RacesGrid from "@/app/schedule/components/race-cards-grid";
 import { Eye, Ticket } from "lucide-react";
-
+import Image from "next/image";
 
 const filteredRaces = [
     { id: 1, name: "Race 1", purse: 100000 },
@@ -22,9 +21,22 @@ export function AvailableRaces() {
     return (
         <Card className="p-10 space-y-4">
             <div className="flex justify-between md:flex-row md:items-center gap-4">
-                <h2 className="text-2xl font-bold min-h-2xl">Digital Downs races</h2>
-                <LayoutDisplay layout={layout} setLayout={setLayout} total={filteredRaces.length} />
+                <div className="flex flex-col md:flex-row md:items-baseline gap-2">
+                    <h2 className="text-2xl font-bold">Digital Downs</h2>
+                    <span className="text-muted-foreground text-lg font-medium">
+                      Sep 26, 2025
+                    </span>
+                </div>
+
+                <LayoutDisplay
+                    layout={layout}
+                    setLayout={setLayout}
+                    total={filteredRaces.length}
+                />
             </div>
+
+            <Image src="/horseracing_banner.jpg" alt="Digital Downs" width={1100} height={200} className="rounded"/>
+
 
             {/*<Input placeholder="Search races..." />*/}
                 {layout === "list" ? (
@@ -37,7 +49,7 @@ export function AvailableRaces() {
 
 
             <div className="flex items-center justify-end space-x-2 py-2">
-                <div className="text-muted-foreground flex-1 text-sm text-gray-600">
+                <div className="text-muted-foreground flex-1 text-sm ">
                     5 of 15 row(s) selected.
                 </div>
                 <div className="space-x-2">

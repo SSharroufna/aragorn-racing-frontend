@@ -105,19 +105,15 @@ const data: Race[] = [
 
 const columns: ColumnDef<Race>[] = [
     {
-        header: 'No.',
+        header: 'Race #',
         accessorFn: (_row, index) => index + 1,
         cell: info => (
-            <span className="block">{info.getValue() as number}</span>
+            <span className="block">R{info.getValue() as number}</span>
         ),
     },
     {
-        header: 'Race',
+        header: 'Name',
         accessorKey: 'race',
-    },
-    {
-        header: 'Date',
-        accessorKey: 'date',
     },
     {
         header: 'Time',

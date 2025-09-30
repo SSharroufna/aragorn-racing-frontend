@@ -7,6 +7,7 @@ import Stack from "@/features/components/layout/stack";
 import FilterSidebar from "./components/race-filters";
 import TrackSelect from "@/app/schedule/components/track-select";
 import {AvailableRaces} from "./components/available-races"
+import { Search } from "lucide-react";
 
 const initialFilters = {
     search: '',
@@ -20,18 +21,14 @@ const initialFilters = {
 export default function RaceSchedule() {
     const [filters, setFilters] = useState(initialFilters);
 
-    const mockRaces = [
-        { surface: 'dirt', race_type: 'maiden_claiming' },
-        { surface: 'turf', race_type: 'allowance' },
-        { surface: 'dirt', race_type: 'stakes' },
-        { surface: 'synthetic', race_type: 'claiming' },
-    ];
-
     return (
             <Stack gap={'md'}>
-                <h1 className="text-2xl font-semibold">Find Races</h1>
+                <h1 className="text-2xl font-semibold flex items-center gap-2">
+                    <Search className="w-6 h-6" />
+                    Find Races
+                </h1>
 
-                <Stack direction={'row'}>
+                <Stack direction="row" className="items-stretch">
                     <div className="flex-2 basis-2/4">
                         <RacesCalendar />
                     </div>
@@ -40,8 +37,8 @@ export default function RaceSchedule() {
                     </div>
                 </Stack>
 
+
                 <Stack>
-                    <h1 className="text-2xl font-semibold">Available Races</h1>
                     <AvailableRaces/>
                 </Stack>
             </Stack>

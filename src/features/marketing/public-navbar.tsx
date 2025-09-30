@@ -3,7 +3,7 @@
 import { useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Menu, User } from "lucide-react"
+import { Menu } from "lucide-react"
 
 import {
     Sheet,
@@ -25,7 +25,7 @@ export default function PublicNavbar() {
     const pathname = usePathname()
 
     return (
-        <nav className="bg-orange-50 border-b">
+        <nav className="bg-background border-b border-border">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div className="flex h-16 items-center justify-between">
                     {/* Left: Mobile Menu (hamburger) */}
@@ -33,7 +33,10 @@ export default function PublicNavbar() {
 
                     {/* Center: Logo */}
                     <div className="flex items-center">
-                        <Link href="/" className="text-xl font-bold text-orange-600">
+                        <Link
+                            href="/"
+                            className="text-xl font-bold text-foreground hover:text-primary-foreground transition"
+                        >
                             Aragorn Racing
                         </Link>
                     </div>
@@ -47,8 +50,8 @@ export default function PublicNavbar() {
                                     href={link.href}
                                     className={`rounded-md px-3 py-2 text-sm font-medium transition ${
                                         pathname === link.href
-                                            ? "bg-orange-100 text-orange-700"
-                                            : "text-gray-700 hover:bg-orange-100 hover:text-orange-700"
+                                            ? "bg-muted text-primary-foreground"
+                                            : "text-foreground hover:bg-muted hover:text-primary-foreground"
                                     }`}
                                 >
                                     {link.name}
@@ -57,10 +60,10 @@ export default function PublicNavbar() {
                         </div>
                     </div>
 
-                    {/* Right: Profile dropdown */}
+                    {/* Right: Profile link */}
                     <Link
                         href="/login"
-                        className="text-sm text-orange-600 hover:underline"
+                        className="text-sm text-primary-foreground hover:underline"
                     >
                         Login
                     </Link>
@@ -79,12 +82,12 @@ const MobileMenu = () => {
             <Sheet open={open} onOpenChange={setOpen}>
                 <SheetTrigger asChild>
                     <Button variant="ghost" size="icon">
-                        <Menu className="h-6 w-6 text-gray-700" />
+                        <Menu className="h-6 w-6 text-foreground" />
                     </Button>
                 </SheetTrigger>
-                <SheetContent side="left" className="w-64">
+                <SheetContent side="left" className="w-64 bg-background text-foreground">
                     <SheetHeader>
-                        <SheetTitle className="text-orange-600">Menu</SheetTitle>
+                        <SheetTitle className="text-primary-foreground">Menu</SheetTitle>
                     </SheetHeader>
                     <div className="mt-6 flex flex-col gap-4">
                         {navLinks.map((link) => (
@@ -92,9 +95,9 @@ const MobileMenu = () => {
                                 key={link.name}
                                 href={link.href}
                                 onClick={() => setOpen(false)}
-                                className={`text-lg text-gray-700 hover:text-orange-600 transition ${
+                                className={`text-lg hover:text-primary-foreground transition ${
                                     pathname === link.href
-                                        ? "underline text-orange-600"
+                                        ? "underline text-primary-foreground"
                                         : ""
                                 }`}
                             >

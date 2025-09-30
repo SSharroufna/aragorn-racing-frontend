@@ -4,8 +4,8 @@ import React, { useState, useMemo } from 'react';
 import { Badge } from '@/features/components/ui/badge';
 import { Slider } from '@/features/components/ui/slider';
 import { Card, CardHeader, CardTitle, CardContent } from '@/features/components/ui/card';
+import { Trees, Mountain, Flag, Droplet, DollarSign } from 'lucide-react';
 
-// Updated mock data with purse values
 const mockRaces = [
     { surface: 'dirt', race_type: 'stakes', distance: '6f', track_condition: 'fast', purse: 100000 },
     { surface: 'turf', race_type: 'allowance', distance: '1m', track_condition: 'firm', purse: 60000 },
@@ -16,50 +16,69 @@ const mockRaces = [
 ];
 
 const initialFilters = {
-    surface: [],
-    race_type: [],
-    distance: [],
-    track_condition: [],
-    purse: [0, 150000], // slider range: [min, max]
+    surface: [] as string[],
+    race_type: [] as string[],
+    distance: [] as string[],
+    track_condition: [] as string[],
+    purse: [0, 150000],
+};
+
+const filterIcons: Record<string, JSX.Element> = {
+    surfaces: <Mountain className="w-4 h-4 text-primary" />,
+    race_types: <Flag className="w-4 h-4 text-primary" />,
+    distances: <Trees className="w-4 h-4 text-primary" />,
+    track_conditions: <Droplet className="w-4 h-4 text-primary" />,
+    purse: <DollarSign className="w-4 h-4 text-primary" />,
 };
 
 export default function FilterSidebar() {
     const [filters, setFilters] = useState(initialFilters);
 
-    const filterOptions = useMemo(() => ({
-        surfaces: [...new Set(mockRaces.map(r => r.surface))],
-        race_types: [...new Set(mockRaces.map(r => r.race_type))],
-        distances: [...new Set(mockRaces.map(r => r.distance))],
-        track_conditions: [...new Set(mockRaces.map(r => r.track_condition))],
-        minPurse: Math.min(...mockRaces.map(r => r.purse)),
-        maxPurse: Math.max(...mockRaces.map(r => r.purse)),
-    }), []);
+    const filterOptions = useMemo(
+        () => ({
+            surfaces: [...new Set(mockRaces.map((r) => r.surface))],
+            race_types: [...new Set(mockRaces.map((r) => r.race_type))],
+            distances: [...new Set(mockRaces.map((r) => r.distance))],
+            track_conditions: [...new Set(mockRaces.map((r) => r.track_condition))],
+            minPurse: Math.min(...mockRaces.map((r) => r.purse)),
+            maxPurse: Math.max(...mockRaces.map((r) => r.purse)),
+        }),
+        []
+    );
 
     const toggleTag = (group: keyof typeof initialFilters, value: string) => {
-        setFilters(prev => {
-            const selected = prev[group as keyof typeof initialFilters] as string[];
+        setFilters((prev) => {
+            const selected = prev[group] as string[];
             const updated = selected.includes(value)
-                ? selected.filter(v => v !== value)
+                ? selected.filter((v) => v !== value)
                 : [...selected, value];
             return { ...prev, [group]: updated };
         });
     };
 
     const handlePurseChange = (values: number[]) => {
-        setFilters(prev => ({ ...prev, purse: values }));
+        setFilters((prev) => ({ ...prev, purse: values }));
     };
 
-    const renderFilterGroup = (label: string, key: keyof typeof filterOptions, stateKey: keyof typeof initialFilters) => (
+    const renderFilterGroup = (
+        label: string,
+        key: keyof typeof filterOptions,
+        stateKey: keyof typeof initialFilters
+    ) => (
         <div>
-            <div className="mb-2 font-semibold text-sm capitalize">{label}</div>
+            <div className="mb-2 font-semibold text-sm capitalize flex items-center gap-2 text-foreground">
+                {filterIcons[key as string]} {label}
+            </div>
             <div className="flex gap-2 flex-wrap">
                 {(filterOptions[key] || []).map((option: string) => (
                     <Badge
                         key={option}
                         onClick={() => toggleTag(stateKey, option)}
-                        className={`cursor-pointer ${filters[stateKey].includes(option)
-                            ? 'bg-blue-500 text-white'
-                            : 'bg-gray-100 text-gray-700'}`}
+                        className={`cursor-pointer ${
+                            filters[stateKey].includes(option)
+                                ? 'bg-primary text-primary-foreground shadow-md'
+                                : 'bg-muted text-muted-foreground'
+                        }`}
                     >
                         {option}
                     </Badge>
@@ -81,7 +100,9 @@ export default function FilterSidebar() {
 
                 {/* Purse Range Slider */}
                 <div>
-                    <div className="mb-2 font-semibold text-sm capitalize">Purse Amount</div>
+                    <div className="mb-2 font-semibold text-sm capitalize flex items-center gap-2 text-foreground">
+                        {filterIcons.purse} Purse Amount
+                    </div>
                     <div className="px-2">
                         <Slider
                             min={filterOptions.minPurse}
@@ -90,7 +111,7 @@ export default function FilterSidebar() {
                             value={filters.purse}
                             onValueChange={handlePurseChange}
                         />
-                        <div className="flex justify-between text-sm text-gray-600 mt-2">
+                        <div className="flex justify-between text-sm text-muted-foreground mt-2">
                             <span>${filters.purse[0].toLocaleString()}</span>
                             <span>${filters.purse[1].toLocaleString()}</span>
                         </div>
