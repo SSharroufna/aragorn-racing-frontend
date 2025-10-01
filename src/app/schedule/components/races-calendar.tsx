@@ -52,8 +52,8 @@ const RacesCalendar = () => {
 
     return (
         <Card>
-            <CardContent className="flex items-center gap-6 py-6">
-                <TrackSelect/>
+            <CardContent className="flex flex-col sm:flex-row items-center gap-6 py-6">
+                <TrackSelect />
 
                 <Calendar
                     mode="single"

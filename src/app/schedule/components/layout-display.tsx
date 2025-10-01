@@ -18,8 +18,9 @@ const LayoutDisplay = ({ layout, setLayout }: LayoutDisplayProps) => {
                     className="flex items-center gap-2"
                 >
                     <LayoutGrid className="h-4 w-4" />
-                    Grid
+                    <span className="hidden md:inline">Grid</span>
                 </Button>
+
                 <Button
                     variant={layout === "list" ? "default" : "ghost"}
                     size="sm"
@@ -27,7 +28,7 @@ const LayoutDisplay = ({ layout, setLayout }: LayoutDisplayProps) => {
                     className="flex items-center gap-2"
                 >
                     <List className="h-4 w-4" />
-                    List
+                    <span className="hidden md:inline">List</span>
                 </Button>
             </div>
         </div>
