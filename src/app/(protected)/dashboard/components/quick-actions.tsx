@@ -12,7 +12,7 @@ export default function QuickActions() {
             description: "Browse all available races",
             icon: Search,
             color: "bg-blue-500 hover:bg-blue-600",
-            link: "/schedule", // Next.js route
+            link: "/schedule",
         },
         {
             id: 2,
@@ -20,7 +20,7 @@ export default function QuickActions() {
             description: "Purchase race analysis",
             icon: ShoppingCart,
             color: "bg-emerald-500 hover:bg-emerald-600",
-            link: "/pricing", // Next.js route
+            link: "/pricing", 
         },
     ];
 

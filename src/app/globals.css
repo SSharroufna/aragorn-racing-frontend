@@ -61,7 +61,7 @@
   --primary-foreground: oklch(0.98 0 0); /* White text on purple */
 
   /* Gold Secondary */
-  --secondary: oklch(0.75 0.15 85); /* Elegant gold */
+  --secondary: oklch(0.85 0.15 85); /* Lighter elegant gold */
   --secondary-foreground: oklch(0.25 0.08 285); /* Deep purple text on gold */
 
   /* Muted states */

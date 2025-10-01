@@ -45,7 +45,6 @@ function RaceSidebarDesktop({
                                 selectedRace,
                                 onSelectRace,
                             }: RaceSidebarProps) {
-    // Define a palette of colors
     const tagColors = [
         { bg: "bg-blue-200", text: "text-blue-800" },
         { bg: "bg-green-200", text: "text-green-800" },
@@ -56,49 +55,50 @@ function RaceSidebarDesktop({
 
     return (
         <div className="hidden md:block">
-            <div className="w-80  rounded overflow-y-auto h-full">
+            <div className="w-80 rounded overflow-y-auto h-full">
                 {races.map((race, index) => {
-                    // pick color based on index
                     const color = tagColors[index % tagColors.length];
 
                     return (
                         <div
                             key={race.id}
                             onClick={() => onSelectRace(race)}
-                            className={`p-3 bg-grey-50 mb-3 rounded border cursor-pointer ${
+                            className={`flex flex-col p-3 bg-grey-50 mb-3 rounded border cursor-pointer ${
                                 selectedRace?.id === race.id
                                     ? "bg-blue-100 border-blue-300"
                                     : "border-gray-200 hover:bg-gray-200"
                             }`}
                         >
-                            {/* Top row: Tag + Time */}
-                            <div className="flex items-center justify-between mb-2">
-                <span className={`${color.bg} ${color.text} px-2 py-0.5 rounded`}>
-                  R{index + 1}
-                </span>
-                                <span className="text-gray-600 text-sm">{race.time}</span>
+                            <div className="flex">
+                                {/* Left: Race number */}
+                                <div className={`${color.bg} ${color.text} px-2 py-1 rounded flex-shrink-0 flex items-center justify-center`}>
+                                    <span className="font-semibold text-sm">R{index + 1}</span>
+                                </div>
+
+                                {/* Right: Content (Title + Info) */}
+                                <div className="flex-1 ml-3 flex flex-col">
+                                    <h3 className="font-semibold">{race.race}</h3>
+
+                                    {/* Info row */}
+                                    <div className="flex items-center gap-4 text-gray-600 text-sm mt-1">
+                                        <div className="flex items-center gap-1">
+                                            <Users size={14} />
+                                            {race.horses} Horses
+                                        </div>
+                                        <div className="flex items-center gap-1">
+                                            <Calendar size={14} />
+                                            {race.time}
+                                        </div>
+                                        <div className="flex items-center gap-1">
+                                            <DollarSign size={14} />
+                                            ${race.purse.toLocaleString()}
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
-                            <h3 className="font-semibold mb-2">{race.race}</h3>
-
-                            {/* Info row */}
-                            <div className="flex items-center gap-3 text-gray-600 text-sm mb-2">
-                                <div className="flex items-center gap-1">
-                                    <Users size={14} />
-                                    {race.horses} Horses
-                                </div>
-                                <div className="flex items-center gap-1">
-                                    <Calendar size={14} />
-                                    {race.time}
-                                </div>
-                                <div className="flex items-center">
-                                    <DollarSign size={14} />
-                                    {race.purse.toLocaleString()}
-                                </div>
-                            </div>
-
-                            {/* View Details button */}
-                            <div className="flex justify-end">
+                            {/* View Details button in a separate row */}
+                            <div className="mt-2 flex justify-end">
                                 <button
                                     className="p-1 bg-primary text-white text-sm rounded hover:bg-primary/90"
                                     onClick={(e) => {

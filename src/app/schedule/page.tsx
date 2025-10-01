@@ -23,12 +23,15 @@ export default function RaceSchedule() {
 
     return (
             <Stack gap={'md'}>
-                <h1 className="text-2xl font-semibold flex items-center gap-2">
-                    <Search className="w-6 h-6" />
-                    Find Races
+                <h1 className="text-2xl font-semibold flex items-center gap-2 relative">
+                    <Search className="w-6 h-6 text-primary" />
+                    <span className="relative">
+        Find Races
+        <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-primary via-accent to-primary/50"></span>
+    </span>
                 </h1>
 
-                <Stack direction="row" className="items-stretch">
+    <Stack direction="row" className="items-stretch">
                     <div className="flex-2 basis-2/4">
                         <RacesCalendar />
                     </div>
