@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Users, Calendar, DollarSign } from "lucide-react";
+import { Users, Calendar } from "lucide-react";
 import { Race } from "@/features/types";
 
 interface RaceSidebarProps {
@@ -17,29 +17,27 @@ function RaceSidebarMobile({
                                onSelectRace,
                            }: RaceSidebarProps) {
     return (
-        <div className="md:hidden mb-4">
-            <select
-                value={selectedRace?.id || ""}
-                onChange={(e) => {
-                    const race = races.find((r) => r.id === e.target.value);
-                    if (race) onSelectRace(race);
-                }}
-                className="w-full border rounded p-2 text-sm"
-            >
-                <option value="">Select a race...</option>
-                {races.map((race) => (
-                    <option key={race.id} value={race.id}>
-                        {race.race} — {race.time}
-                    </option>
-                ))}
-            </select>
+        <div className="md:hidden mb-4 flex flex-wrap gap-2 justify-center">
+            {races.map((race, index) => {
+                const isSelected = selectedRace?.id === race.id;
+                return (
+                    <button
+                        key={race.id}
+                        onClick={() => onSelectRace(race)}
+                        className={`flex flex-col items-center justify-center px-4 py-2 rounded-lg border font-semibold text-sm transition-all duration-200
+              ${isSelected ? "bg-secondary text-primary-foreground border-secondary" : "bg-white border-gray-300 hover:bg-gray-100"}`}
+                    >
+                        <span>R{index + 1}</span>
+                        <span className="text-xs text-gray-500">{race.time}</span>
+                    </button>
+                );
+            })}
         </div>
     );
 }
 
+
 // ✅ Desktop sidebar
-// ✅ Desktop sidebar with individual tags and top timing
-// ✅ Desktop sidebar with dynamic tag colors
 function RaceSidebarDesktop({
                                 races,
                                 selectedRace,
@@ -63,16 +61,16 @@ function RaceSidebarDesktop({
                         <div
                             key={race.id}
                             onClick={() => onSelectRace(race)}
-                            className={`flex flex-col p-3 bg-grey-50 mb-3 rounded border cursor-pointer ${
+                            className={`flex flex-col p-3 bg-white border-l-4 mb-3 rounded border cursor-pointer ${
                                 selectedRace?.id === race.id
-                                    ? "bg-blue-100 border-blue-300"
-                                    : "border-gray-200 hover:bg-gray-200"
+                                    ? "bg-blue-100 border-secondary border-l-secondary"
+                                    : "border-gray-200 hover:bg-gray-200 border-l-primary"
                             }`}
                         >
-                            <div className="flex">
+                            <div className="flex ">
                                 {/* Left: Race number */}
-                                <div className={`${color.bg} ${color.text} px-2 py-1 rounded flex-shrink-0 flex items-center justify-center`}>
-                                    <span className="font-semibold text-sm">R{index + 1}</span>
+                                <div className={`px-2 py-1 rounded flex-shrink-0 flex items-center justify-center`}>
+                                    <span className="font-semibold text-lg">R{index + 1}</span>
                                 </div>
 
                                 {/* Right: Content (Title + Info) */}
@@ -90,25 +88,22 @@ function RaceSidebarDesktop({
                                             {race.time}
                                         </div>
                                         <div className="flex items-center gap-1">
-                                            <DollarSign size={14} />
                                             ${race.purse.toLocaleString()}
                                         </div>
                                     </div>
                                 </div>
+                                <div className="mt-2 flex justify-end">
+                                    <div
+                                        className="text-primary text-sm rounded"
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                        }}
+                                    >
+                                    </div>
+                                </div>
                             </div>
 
-                            {/* View Details button in a separate row */}
-                            <div className="mt-2 flex justify-end">
-                                <button
-                                    className="p-1 bg-primary text-white text-sm rounded hover:bg-primary/90"
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        alert(`Viewing details for ${race.race}`);
-                                    }}
-                                >
-                                    View Details
-                                </button>
-                            </div>
+
                         </div>
                     );
                 })}

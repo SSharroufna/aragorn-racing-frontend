@@ -25,6 +25,7 @@ export default function PricingPage() {
     ];
 
     return (
+        <PageWrapper>
         <div className="space-y-12">
             {/* Header */}
             <div className="text-center">
@@ -153,5 +154,6 @@ export default function PricingPage() {
                 </Card>
             </div>
         </div>
+        </PageWrapper>
     );
 }

@@ -6,7 +6,8 @@ import RaceDetails from "@/app/track/components/race-details";
 
 import TrackHeader from "@/app/track/components/track-header";
 import { Race } from "@/features/types"
-import Image from "next/image";
+import PageWrapper from "@/features/components/layout/page-wrapper";
+import RaceInfo from "./components/race-info"
 
 // Sample races data
 const sampleRaces: Race[] = [
@@ -116,11 +117,10 @@ export default function TrackDetailsPage() {
     const [selectedRace, setSelectedRace] = React.useState(sampleRaces[0]);
 
     return (
+        <PageWrapper>
         <div className={'flex flex-col gap-6'}>
             {/* Breadcrumbs */}
             <TrackHeader/>
-
-            {/*<Image src="/horseracing_banner.jpg" alt="Digital Downs" width={1200} height={100} className="rounded"/>*/}
 
             <div className="flex flex-col gap-6 h-[900px] md:flex-row">
                 <RaceSidebar
@@ -128,9 +128,13 @@ export default function TrackDetailsPage() {
                     selectedRace={selectedRace}
                     onSelectRace={setSelectedRace}
                 />
+                <div className={'flex flex-col gap-4'}>
+                <RaceInfo/>
                 <RaceDetails race={selectedRace} />
+                </div>
             </div>
 
         </div>
+        </PageWrapper>
     );
 }

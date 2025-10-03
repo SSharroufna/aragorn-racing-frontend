@@ -1,7 +1,6 @@
 // app/layout.tsx - Updated version of your existing layout
 "use client";
 
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
 import { AuthProvider, useAuth } from "react-oidc-context";
@@ -9,18 +8,25 @@ import { useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import PublicNavbar from "@/features/marketing/public-navbar";
 import ProtectedNavbar from "@/features/components/nav-bar";
-import PageWrapper from "@/features/components/layout/page-wrapper";
 import { PendingActionsProvider, usePendingActions } from "@/app/contexts/PendingActionsContext";
 
+import { Geist, Geist_Mono, Playfair_Display } from "next/font/google";
+
 const geistSans = Geist({
-    variable: "--font-geist-sans",
+    variable: "--font-sans",
     subsets: ["latin"],
 });
 
 const geistMono = Geist_Mono({
-    variable: "--font-geist-mono",
+    variable: "--font-mono",
     subsets: ["latin"],
 });
+
+const playfair = Playfair_Display({
+    variable: "--font-title",
+    subsets: ["latin"],
+});
+
 
 const cognitoAuthConfig = {
     authority: "https://cognito-idp.us-east-2.amazonaws.com/us-east-2_ClpUoncQL",
@@ -63,9 +69,7 @@ function LayoutWithAuth({ children }: { children: React.ReactNode }) {
     return (
         <>
             {auth?.isAuthenticated ? <ProtectedNavbar /> : <PublicNavbar />}
-            <PageWrapper>
                 {children}
-            </PageWrapper>
         </>
     );
 }
@@ -77,9 +81,7 @@ export default function RootLayout({
 }) {
     return (
         <html lang="en">
-        <body
-            className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50`}
-        >
+        <body className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable} antialiased bg-gray-50`}>
         <AuthProvider {...cognitoAuthConfig}>
             <PendingActionsProvider>
                 <LayoutWithAuth>{children}</LayoutWithAuth>

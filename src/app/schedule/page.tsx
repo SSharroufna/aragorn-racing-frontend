@@ -22,6 +22,7 @@ export default function RaceSchedule() {
     const [filters, setFilters] = useState(initialFilters);
 
     return (
+        <PageWrapper>
         <Stack gap="md">
             <h1 className="text-2xl font-semibold flex items-center gap-2 relative">
                 <Search className="w-6 h-6 text-primary" />
@@ -41,5 +42,6 @@ export default function RaceSchedule() {
             {/* Available Races */}
             <AvailableRaces />
         </Stack>
+        </PageWrapper>
     );
 }

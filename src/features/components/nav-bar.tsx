@@ -9,7 +9,7 @@ import {
     DropdownMenuTrigger,
 } from "@/features/components/ui/dropdown-menu";
 import { Button } from "@/features/components/ui/button";
-import { User } from "lucide-react";
+import { User, Crown } from "lucide-react";
 import { useAuth } from "react-oidc-context";
 
 // Tabs / menu items
@@ -39,21 +39,20 @@ export default function ProtectedNavbar() {
     };
 
     return (
-        <header>
-            <nav className="bg-background border-b border-border">
-                <div className="mx-auto max-w-screen-xl p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between">
+        <header className="sticky top-0 z-50">
+            <nav className="bg-gradient-to-r from-background via-background to-primary/5 border-b-2 border-primary/20 backdrop-blur-sm shadow-lg">
+                <div className="mx-auto max-w-screen-xl p-4 flex flex-row items-center justify-between">
 
                     {/* Desktop row: logo + tabs */}
                     <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-6 w-full sm:w-auto">
-                        <div className="flex items-center space-x-3 rtl:space-x-reverse">
-                            <img
-                                src="https://flowbite.com/docs/images/logo.svg"
-                                className="h-8"
-                                alt="Aragorn Racing Logo"
-                            />
-                            <span className="self-center text-2xl font-semibold text-foreground">
+                        <div className="flex items-center gap-2">
+                            <Crown className="w-6 h-6 text-accent" />
+                            <Link
+                                href="/dashboard"
+                                className="text-xl font-bold bg-gradient-to-r from-primary via-primary/90 to-accent bg-clip-text text-transparent hover:from-primary/80 hover:to-accent/80 transition-all duration-300"
+                            >
                                 Aragorn Racing
-                            </span>
+                            </Link>
                         </div>
 
                         {/* Desktop tabs */}
@@ -65,10 +64,10 @@ export default function ProtectedNavbar() {
                                     <li key={tab.href}>
                                         <Link
                                             href={tab.href}
-                                            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                                            className={`relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
                                                 isActive
-                                                    ? "bg-primary text-primary-foreground font-semibold shadow-sm"
-                                                    : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                                                    ? "bg-primary text-primary-foreground font-semibold shadow-md"
+                                                    : "text-foreground hover:bg-muted hover:shadow-sm"
                                             }`}
                                         >
                                             {tab.label}
@@ -80,17 +79,38 @@ export default function ProtectedNavbar() {
                     </div>
 
                     {/* User dropdown always right */}
-                    <div className="flex items-center mt-2 sm:mt-0">
+                    <div className="flex mt-2 sm:mt-0">
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>
-                                <Button variant="ghost" size="icon">
+                                <Button
+                                    variant="ghost"
+                                    size="icon"
+                                    className="hover:bg-muted transition-colors rounded-full"
+                                >
                                     <User className="h-6 w-6 text-foreground" />
                                 </Button>
                             </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end" className="bg-card text-card-foreground">
-                                <DropdownMenuItem key="profile">Profile</DropdownMenuItem>
-                                <DropdownMenuItem key="settings">Settings</DropdownMenuItem>
-                                <DropdownMenuItem key="logout" onClick={handleLogout}>
+                            <DropdownMenuContent
+                                align="end"
+                                className="bg-card text-card-foreground border-primary/20 shadow-lg"
+                            >
+                                <DropdownMenuItem
+                                    key="profile"
+                                    className="hover:bg-primary/10 cursor-pointer"
+                                >
+                                    Profile
+                                </DropdownMenuItem>
+                                <DropdownMenuItem
+                                    key="settings"
+                                    className="hover:bg-primary/10 cursor-pointer"
+                                >
+                                    Settings
+                                </DropdownMenuItem>
+                                <DropdownMenuItem
+                                    key="logout"
+                                    onClick={handleLogout}
+                                    className="hover:bg-primary/10 cursor-pointer text-destructive"
+                                >
                                     Logout
                                 </DropdownMenuItem>
                             </DropdownMenuContent>
@@ -99,7 +119,7 @@ export default function ProtectedNavbar() {
                 </div>
 
                 {/* Mobile tabs */}
-                <ul className="flex flex-wrap sm:hidden justify-start gap-2 px-4 pb-2">
+                <ul className="flex flex-wrap sm:hidden border-t-gray-200 border-1 p-2">
                     {tabs.map((tab) => {
                         const isActive =
                             pathname === tab.href || pathname.startsWith(tab.href + "/");
@@ -107,10 +127,11 @@ export default function ProtectedNavbar() {
                             <li key={tab.href}>
                                 <Link
                                     href={tab.href}
-                                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                                    className={`relative px-4 py-2 text-sm font-medium transition-all duration-200 
+            ${
                                         isActive
-                                            ? "bg-primary text-primary-foreground font-semibold shadow-sm"
-                                            : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                                            ? "border-b-2 border-primary text-primary font-semibold"
+                                            : "text-muted-foreground hover:text-foreground hover:border-b-2 hover:border-muted/70"
                                     }`}
                                 >
                                     {tab.label}

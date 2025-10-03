@@ -70,7 +70,7 @@ export default function BuyAllDialog() {
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
                 <Button onClick={handleBuyAllClick}>
-                    Buy all
+                    Buy All
                 </Button>
             </DialogTrigger>
 
@@ -78,7 +78,7 @@ export default function BuyAllDialog() {
                 <DialogHeader>
                     <DialogTitle>Confirm Purchase</DialogTitle>
                     <DialogDescription>
-                        You're about to buy all available races. Are you sure you want to continue?
+                        Youre about to buy all available races. Are you sure you want to continue?
                     </DialogDescription>
                 </DialogHeader>
 

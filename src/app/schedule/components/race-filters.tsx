@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, {useState, useMemo, JSX} from 'react';
 import { Badge } from '@/features/components/ui/badge';
 import { Slider } from '@/features/components/ui/slider';
 import { Card, CardHeader, CardTitle, CardContent } from '@/features/components/ui/card';
@@ -70,12 +70,12 @@ export default function FilterSidebar() {
                 {filterIcons[key as string]} {label}
             </div>
             <div className="flex gap-2 flex-wrap">
-                {(filterOptions[key] || []).map((option: string) => (
+                {(filterOptions[key] as string[]).map((option: string) => (
                     <Badge
                         key={option}
                         onClick={() => toggleTag(stateKey, option)}
                         className={`cursor-pointer ${
-                            filters[stateKey].includes(option)
+                            (filters[stateKey] as string[]).includes(option)
                                 ? 'bg-primary text-primary-foreground shadow-md'
                                 : 'bg-muted text-muted-foreground'
                         }`}

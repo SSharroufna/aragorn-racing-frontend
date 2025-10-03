@@ -1,33 +1,48 @@
 import React from "react";
-import RecentPurchases from "./components/recent-purchases";
-import QuickActions from "./components/quick-actions";
+import {
+    Crown, Search
+} from "lucide-react";
+import QuickActions from "@/app/(protected)/dashboard/components/quick-actions";
+import RecentPurchases from "@/app/(protected)/dashboard/components/recent-purchases";
+import RemainingCredits from "@/app/track/components/credits-remining";
+import Link from "next/link";
+import {Button} from "@/features/components/ui/button";
+import PageWrapper from "@/features/components/layout/page-wrapper";
 
-const Dashboard = () => {
+export default function Dashboard() {
+
     return (
-        <div className="space-y-6">
-            {/* Header */}
+        <PageWrapper>
+            {/* Header with gradient */}
             <div>
-                <h1 className="text-2xl font-bold">Welcome Back, Mark!</h1>
-                <p className="text-gray-600">
-                    Check out your saved racing and racing happening today.
-                </p>
-            </div>
+                <div className="space-y-2">
+                        <h1 className="text-4xl font-bold text-foreground">
+                            Welcome Back, Mark!
+                        </h1>
+                        <p className="text-md text-muted-foreground">
+                            Check out your upcoming races, available credits, and explore new tracks.
+                        </p>
+                    </div>
+                </div>
 
-            {/* Main Content */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                {/* Left Column */}
+                {/* Main Grid */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-6">
+
+                {/* Left Column - Recent Purchases */}
                 <div className="lg:col-span-2 space-y-6">
-                    <RecentPurchases />
+                    {/* Recent Purchases */}
+                    <RecentPurchases/>
                 </div>
 
-                {/* Right Column */}
+                {/* Right Column - Quick Actions & Stats */}
                 <div className="space-y-6">
+                    {/* Track Card Pass */}
+                    <RemainingCredits/>
+
                     {/* Quick Actions */}
-                    <QuickActions />
+                    {/*<QuickActions />*/}
                 </div>
             </div>
-        </div>
+        </PageWrapper>
     );
-};
-
-export default Dashboard;
+}

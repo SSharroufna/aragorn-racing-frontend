@@ -79,7 +79,7 @@ export default function TrackScrollSelect() {
                                 <span>
                         {selectedTrack
                             ? tracks.find(t => t.id === selectedTrack)?.name
-                            : "Select a track"}
+                            : "Select a site"}
                     </span>
                             </div>
                             <svg
@@ -99,7 +99,7 @@ export default function TrackScrollSelect() {
                         </div>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent className="w-80 max-h-80 overflow-y-auto">
-                        <DropdownMenuLabel>Tracks</DropdownMenuLabel>
+                        <DropdownMenuLabel>Sites</DropdownMenuLabel>
                         {tracks.map((track) => (
                             <DropdownMenuItem
                                 key={track.id}

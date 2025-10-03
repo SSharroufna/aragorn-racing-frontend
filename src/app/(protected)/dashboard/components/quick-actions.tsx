@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/features/components/ui/card";
 import { Button } from "@/features/components/ui/button";
-import { Search, ShoppingCart, Zap } from "lucide-react";
+import {Search, ShoppingCart, TrendingUp} from "lucide-react";
 
 export default function QuickActions() {
     const actions = [
@@ -25,32 +25,33 @@ export default function QuickActions() {
     ];
 
     return (
-        <Card className="shadow-lg border-0 bg-white">
+        <Card>
             <CardHeader>
-                <CardTitle className="text-lg flex items-center">
-                    <Zap className="w-5 h-5 mr-2 text-yellow-500" />
+                <CardTitle className="flex items-center gap-2">
+                    <TrendingUp className="w-5 h-5 text-primary" />
                     Quick Actions
                 </CardTitle>
             </CardHeader>
-            <CardContent>
-                <div className="flex flex-col gap-6">
-                    {actions.map((action) => {
-                        const IconComponent = action.icon;
-                        return (
-                            <Link key={action.id} href={action.link} className="w-full">
-                                <Button
-                                    className={`w-full h-auto p-4 ${action.color} text-white flex flex-col items-center space-y-2`}
-                                >
-                                    <IconComponent className="w-6 h-6" />
-                                    <div className="text-center">
-                                        <div className="font-semibold text-sm">{action.title}</div>
-                                        <div className="text-xs opacity-90">{action.description}</div>
-                                    </div>
-                                </Button>
-                            </Link>
-                        );
-                    })}
-                </div>
+            <CardContent className="flex flex-col gap-4">
+                <Link href="/schedule">
+                    <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold h-auto py-4 flex flex-col items-center gap-2">
+                        <Search className="w-6 h-6" />
+                        <div>
+                            <div className="font-bold">Find Races</div>
+                            <div className="text-xs opacity-90">Browse all available races</div>
+                        </div>
+                    </Button>
+                </Link>
+
+                <Link href="/pricing">
+                    <Button className="w-full bg-accent hover:bg-accent/90 text-foreground font-semibold h-auto py-4 flex flex-col items-center gap-2">
+                        <ShoppingCart className="w-6 h-6" />
+                        <div>
+                            <div className="font-bold">Buy Forms</div>
+                            <div className="text-xs opacity-90">Purchase race analysis</div>
+                        </div>
+                    </Button>
+                </Link>
             </CardContent>
         </Card>
     );

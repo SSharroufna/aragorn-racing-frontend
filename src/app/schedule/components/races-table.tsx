@@ -19,7 +19,7 @@ import { Eye, Download } from 'lucide-react';
 import { Race } from '@/features/types';
 import { useRouter } from 'next/navigation';
 
-const data: Race[] = [
+export const data: Race[] = [
     {
         id: 'race001',
         race: 'Florida Downs Stakes',

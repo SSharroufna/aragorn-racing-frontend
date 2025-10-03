@@ -30,7 +30,9 @@ export function AvailableRaces() {
           </span>
                 </div>
 
-                <LayoutDisplay layout={layout} setLayout={setLayout} total={filteredRaces.length} />
+                <div className="relative z-20">
+                    <LayoutDisplay layout={layout} setLayout={setLayout} total={filteredRaces.length} />
+                </div>
             </div>
 
             {/* Banner */}
@@ -45,7 +47,7 @@ export function AvailableRaces() {
             </div>
 
             {/* Races content */}
-            <div className="mt-4">
+            <div>
                 {layout === "list" ? (
                     <div className="overflow-hidden rounded-md border">
                         <RacesTable />
@@ -55,7 +57,6 @@ export function AvailableRaces() {
                 )}
             </div>
 
-            {/* Footer actions */}
             {/* Footer actions */}
             <div className="flex flex-col md:flex-row items-center justify-between gap-2 mt-4 z-10">
                 <div className="text-muted-foreground text-sm">
