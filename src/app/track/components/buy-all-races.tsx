@@ -70,7 +70,7 @@ export default function BuyAllDialog() {
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
                 <Button onClick={handleBuyAllClick}>
-                    Buy All
+                    Buy Full Card
                 </Button>
             </DialogTrigger>
 

@@ -22,11 +22,6 @@ const geistMono = Geist_Mono({
     subsets: ["latin"],
 });
 
-const playfair = Playfair_Display({
-    variable: "--font-title",
-    subsets: ["latin"],
-});
-
 
 const cognitoAuthConfig = {
     authority: "https://cognito-idp.us-east-2.amazonaws.com/us-east-2_ClpUoncQL",
@@ -81,7 +76,7 @@ export default function RootLayout({
 }) {
     return (
         <html lang="en">
-        <body className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable} antialiased bg-gray-50`}>
+        <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50`}>
         <AuthProvider {...cognitoAuthConfig}>
             <PendingActionsProvider>
                 <LayoutWithAuth>{children}</LayoutWithAuth>

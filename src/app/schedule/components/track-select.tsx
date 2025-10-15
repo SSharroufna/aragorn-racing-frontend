@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from "react";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { ScrollArea } from "@/features/components/ui/scroll-area";
 import { Button } from "@/features/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import {
@@ -11,20 +11,7 @@ import {
     DropdownMenuLabel,
     DropdownMenuTrigger,
 } from "@/features/components/ui/dropdown-menu";
-
-const tracks = [
-    { id: "photo-finish", name: "Photo Finish™ Live", logo: "/photo-finish.png", url: "https://photofinish.live/home" },
-    { id: "digital-downs", name: "Digital Downs", logo: "/digital-downs.png", url: "https://www.digitaldowns.live" },
-    { id: "sulkyland", name: "Sulkyland", logo: "/sulkyland.png", url: "https://sulkyland.com/en/default.aspx" },
-    { id: "rival-stars", name: "Rival Stars Horse Racing", logo: "/horse-racing.png", url: "https://rivalstarshorseracing.com" },
-    { id: "sport-of-kings", name: "Digital Stables (Sport of Kings)", logo: "/sport-of-kings.png", url: "https://www.sportofkings.us" },
-    { id: "betradar", name: "Betradar", logo: "/betrader.png", url: "https://www.betradar.com/virtual-sports-betting/virtual-horses/" },
-    { id: "william-hill", name: "William Hill", logo: "/william-hill.png", url: "https://www.williamhill.us/virtual-racing/" },
-    { id: "global-bet", name: "Global Bet", logo: "/global-bet.png", url: "https://www.globalbet.com/games/virtual-horses" },
-    { id: "bet-viral", name: "BetViral", logo: "/bet-viral.png", url: "https://www.betvirtual.co" },
-    { id: "horse-race-game", name: "HorseRaceGame.com", logo: "/horse-race-game.png", url: "https://www.horseracegame.com" },
-    { id: "horseracingnation", name: "Horse Racing Nation", logo: "/horse-nation.png", url: "https://www.horseracingnation.com" },
-];
+import { sites } from "@/lib/data"
 
 export default function TrackScrollSelect() {
     const [selectedTrack, setSelectedTrack] = React.useState<string>("");
@@ -35,7 +22,7 @@ export default function TrackScrollSelect() {
             <div className="hidden sm:block">
                 <ScrollArea className="h-96 rounded border border-border p-2">
                     <div className="flex flex-col gap-2">
-                        {tracks.map((track) => (
+                        {sites.map((track) => (
                             <Button
                                 key={track.id}
                                 variant={selectedTrack === track.id ? "default" : "outline"}
@@ -71,14 +58,14 @@ export default function TrackScrollSelect() {
                             <div className="flex items-center gap-2">
                                 {selectedTrack && (
                                     <img
-                                        src={tracks.find(t => t.id === selectedTrack)?.logo}
-                                        alt={tracks.find(t => t.id === selectedTrack)?.name}
+                                        src={sites.find(t => t.id === selectedTrack)?.logo}
+                                        alt={sites.find(t => t.id === selectedTrack)?.name}
                                         className="w-6 h-6 object-contain flex-shrink-0"
                                     />
                                 )}
                                 <span>
                         {selectedTrack
-                            ? tracks.find(t => t.id === selectedTrack)?.name
+                            ? sites.find(t => t.id === selectedTrack)?.name
                             : "Select a site"}
                     </span>
                             </div>
@@ -100,7 +87,7 @@ export default function TrackScrollSelect() {
                     </DropdownMenuTrigger>
                     <DropdownMenuContent className="w-80 max-h-80 overflow-y-auto">
                         <DropdownMenuLabel>Sites</DropdownMenuLabel>
-                        {tracks.map((track) => (
+                        {sites.map((track) => (
                             <DropdownMenuItem
                                 key={track.id}
                                 className="flex items-center gap-2"

@@ -1,7 +1,6 @@
-"use client";
+'use client';
 
 import * as React from "react";
-import { useAuth } from "react-oidc-context";
 import {
     Breadcrumb,
     BreadcrumbItem,
@@ -11,29 +10,41 @@ import {
     BreadcrumbPage,
 } from "@/features/components/layout/breadcrumb";
 import BuyAllDialog from "@/app/track/components/buy-all-races";
+import { Button } from "@/features/components/ui/button";
+import type { Track } from "@/features/types";
 
-const TrackHeader = () => {
+interface TrackHeaderProps {
+    track: Track;
+}
 
+const TrackHeader: React.FC<TrackHeaderProps> = ({ track }) => {
     return (
         <div>
+            {/* Breadcrumb */}
             <Breadcrumb className="mb-4">
                 <BreadcrumbList>
                     <BreadcrumbItem>
                         <BreadcrumbLink href="/schedule">Find Races</BreadcrumbLink>
                         <BreadcrumbSeparator />
                     </BreadcrumbItem>
-
                     <BreadcrumbItem>
-                        <BreadcrumbPage>Track Details</BreadcrumbPage>
+                        <BreadcrumbPage>{track.name}</BreadcrumbPage>
                     </BreadcrumbItem>
                 </BreadcrumbList>
             </Breadcrumb>
 
-            {/* Track title + total races */}
-            <div className="flex justify-between">
-                <div className="flex justify-between items-center gap-4">
-                    <h1 className="text-4xl font-extrabold">Digital Downs</h1>
-                    {/* Date & Day */}
+            {/* Header info */}
+            <div className="flex justify-between items-center">
+                <div className="flex items-center gap-4">
+                    {/* Track name */}
+                    <h1 className="text-4xl font-extrabold">{track.name}</h1>
+
+                    {/* Races count */}
+                    <span className="text-gray-500 text-sm">
+                        {track.races?.length ?? 0} Races
+                    </span>
+
+                    {/* Date */}
                     <p className="text-md text-gray-500">
                         {new Date().toLocaleDateString("en-US", {
                             weekday: "short",
@@ -43,9 +54,13 @@ const TrackHeader = () => {
                     </p>
                 </div>
 
-
-                {/* Pass login state to BuyAllDialog */}
-                <BuyAllDialog />
+                {/* Actions */}
+                <div className="flex items-center gap-2">
+                    <Button variant="ghost" className="text-xs">
+                        Buy Single Race
+                    </Button>
+                    <BuyAllDialog />
+                </div>
             </div>
         </div>
     );

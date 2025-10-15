@@ -5,6 +5,20 @@ export type Race = {
     time: string;
     horses: number;
     distance: string;
-    surface: 'dirt' | 'turf' | 'synthetic';
+    surface: string;
     purse: number;
+};
+
+export type Track = {
+    id: string;
+    name: string;
+    races: Race[];
+};
+
+export type Site = {
+    id: string;
+    name: string;
+    logo: string;
+    url: string;
+    tracks: Track[];
 };

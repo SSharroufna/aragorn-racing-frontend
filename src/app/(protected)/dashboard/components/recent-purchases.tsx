@@ -51,9 +51,8 @@ export default function RecentPurchases() {
             <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-xl">
                     <Clock className="w-6 h-6 text-primary" />
-                    Upcoming Race Forms
+                    Purchased Racing Forms
                 </CardTitle>
-                <p className="text-sm text-muted-foreground">Sorted by race date</p>
             </CardHeader>
             <CardContent className="space-y-3">
                 {recentPurchases.map((purchase) => {
