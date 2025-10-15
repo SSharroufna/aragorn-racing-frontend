@@ -1,14 +1,14 @@
 'use client';
 import React, { useState } from 'react';
 import { Crown, ShoppingCart, Check, Minus, Plus } from 'lucide-react';
-import { Card, CardHeader, CardTitle, CardContent, CardFooter, CardDescription } from '@/features/components/ui/card';
-import { Button } from '@/features/components/ui/button';
-import { Switch } from '@/features/components/ui/switch';
-import { Label } from '@/features/components/ui/label';
-import { Badge } from '@/features/components/ui/badge';
-import { Input } from '@/features/components/ui/input';
+import { Card, CardHeader, CardTitle, CardContent, CardFooter, CardDescription } from '@/app/components/ui/card';
+import { Button } from '@/app/components/ui/button';
+import { Switch } from '@/app/components/ui/switch';
+import { Label } from '@/app/components/ui/label';
+import { Badge } from '@/app/components/ui/badge';
+import { Input } from '@/app/components/ui/input';
 import { useRouter } from 'next/navigation';
-import PageWrapper from "@/features/components/layout/page-wrapper";
+import PageWrapper from "@/app/components/layout/page-wrapper";
 
 
 export default function PricingPage() {

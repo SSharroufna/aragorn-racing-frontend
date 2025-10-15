@@ -3,7 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import { Lock } from "lucide-react";
-import { Card } from "@/features/components/ui/card";
+import { Card } from "@/app/components/ui/card";
 
 interface Horse {
     number: number;

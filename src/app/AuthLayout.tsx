@@ -5,8 +5,8 @@ import { AuthProvider, useAuth } from "react-oidc-context";
 import { useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import PublicNavbar from "@/features/marketing/public-navbar";
-import ProtectedNavbar from "@/features/components/nav-bar";
-import PageWrapper from "@/features/components/layout/page-wrapper";
+import ProtectedNavbar from "@/app/components/nav-bar";
+import PageWrapper from "@/app/components/layout/page-wrapper";
 import { PendingActionsProvider, usePendingActions } from "@/app/contexts/PendingActionsContext";
 
 const cognitoAuthConfig = {

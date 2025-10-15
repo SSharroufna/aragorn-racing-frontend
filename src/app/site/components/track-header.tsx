@@ -8,9 +8,9 @@ import {
     BreadcrumbList,
     BreadcrumbSeparator,
     BreadcrumbPage,
-} from "@/features/components/layout/breadcrumb";
-import BuyAllDialog from "@/app/track/components/buy-all-races";
-import { Button } from "@/features/components/ui/button";
+} from "@/app/components/layout/breadcrumb";
+import BuyAllDialog from "@/app/site/components/buy-all-races";
+import { Button } from "@/app/components/ui/button";
 import type { Track } from "@/features/types";
 
 interface TrackHeaderProps {

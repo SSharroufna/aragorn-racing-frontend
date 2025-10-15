@@ -7,7 +7,7 @@ import { AuthProvider, useAuth } from "react-oidc-context";
 import { useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import PublicNavbar from "@/features/marketing/public-navbar";
-import ProtectedNavbar from "@/features/components/nav-bar";
+import ProtectedNavbar from "@/app/components/nav-bar";
 import { PendingActionsProvider, usePendingActions } from "@/app/contexts/PendingActionsContext";
 
 import { Geist, Geist_Mono, Playfair_Display } from "next/font/google";

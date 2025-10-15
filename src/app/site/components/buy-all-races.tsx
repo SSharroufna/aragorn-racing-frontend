@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Button } from "@/features/components/ui/button";
+import { Button } from "@/app/components/ui/button";
 import {
     Dialog,
     DialogContent,
@@ -10,7 +10,7 @@ import {
     DialogTitle,
     DialogFooter,
     DialogTrigger,
-} from "@/features/components/ui/dialog";
+} from "@/app/components/ui/dialog";
 import { useActionGuard } from "@/features/hooks/useActionGuard";
 import { usePendingActions } from "@/app/contexts/PendingActionsContext";
 

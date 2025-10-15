@@ -1,9 +1,9 @@
 'use client';
 
 import React, {useState, useMemo, JSX} from 'react';
-import { Badge } from '@/features/components/ui/badge';
-import { Slider } from '@/features/components/ui/slider';
-import { Card, CardHeader, CardTitle, CardContent } from '@/features/components/ui/card';
+import { Badge } from '@/app/components/ui/badge';
+import { Slider } from '@/app/components/ui/slider';
+import { Card, CardHeader, CardTitle, CardContent } from '@/app/components/ui/card';
 import { Trees, Mountain, Flag, Droplet, DollarSign } from 'lucide-react';
 
 const mockRaces = [

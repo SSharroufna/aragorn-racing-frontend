@@ -4,10 +4,10 @@ import {
 } from "lucide-react";
 import QuickActions from "@/app/(protected)/dashboard/components/quick-actions";
 import RecentPurchases from "@/app/(protected)/dashboard/components/recent-purchases";
-import RemainingCredits from "@/app/track/components/credits-remining";
+import RemainingCredits from "@/app/site/components/credits-remining";
 import Link from "next/link";
-import {Button} from "@/features/components/ui/button";
-import PageWrapper from "@/features/components/layout/page-wrapper";
+import {Button} from "@/app/components/ui/button";
+import PageWrapper from "@/app/components/layout/page-wrapper";
 
 export default function Dashboard() {
 

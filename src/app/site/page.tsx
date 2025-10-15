@@ -2,11 +2,11 @@
 
 import * as React from "react";
 import { useParams } from "next/navigation";
-import RaceSidebar from "@/app/track/components/left-sidebar";
-import RaceDetails from "@/app/track/components/race-details";
-import TrackHeader from "@/app/track/components/track-header";
-import RaceInfo from "../components/race-info";
-import PageWrapper from "@/features/components/layout/page-wrapper";
+import RaceSidebar from "@/app/site/components/left-sidebar";
+import RaceDetails from "@/app/site/components/race-details";
+import TrackHeader from "@/app/site/components/track-header";
+import RaceInfo from "./components/race-info";
+import PageWrapper from "@/app/components/layout/page-wrapper";
 
 import { sites } from "@/lib/data";
 import { Race, Track } from "@/features/types";

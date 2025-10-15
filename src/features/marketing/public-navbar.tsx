@@ -11,9 +11,9 @@ import {
     SheetHeader,
     SheetTitle,
     SheetTrigger,
-} from "@/features/components/ui/sheet"
+} from "@/app/components/ui/sheet"
 
-import { Button } from "@/features/components/ui/button"
+import { Button } from "@/app/components/ui/button"
 
 const navLinks = [
     { name: "Find Races", href: "/schedule" },

@@ -1,9 +1,9 @@
 import React from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/features/components/ui/card";
-import { Badge } from "@/features/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/app/components/ui/card";
+import { Badge } from "@/app/components/ui/badge";
 import { Heart, MapPin } from "lucide-react";
 import { Clock, Calendar, Trophy } from "lucide-react";
-import { Button } from "@/features/components/ui/button";
+import { Button } from "@/app/components/ui/button";
 
 // Mock data for recent purchases
 const recentPurchases = [

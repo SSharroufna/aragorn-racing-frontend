@@ -1,7 +1,7 @@
 'use client';
 
 import React from "react";
-import { Button } from "@/features/components/ui/button";
+import { Button } from "@/app/components/ui/button";
 import { Crown, TrendingUp, FileText, Sparkles } from "lucide-react";
 import Image from "next/image";
 

@@ -1,10 +1,10 @@
 'use client';
 import React, { useState } from 'react';
 import { CheckCircle, Crown, LogOut, CreditCard } from 'lucide-react';
-import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/features/components/ui/card';
-import { Button } from '@/features/components/ui/button';
-import { Badge } from '@/features/components/ui/badge';
-import PageWrapper from "@/features/components/layout/page-wrapper";
+import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/app/components/ui/card';
+import { Button } from '@/app/components/ui/button';
+import { Badge } from '@/app/components/ui/badge';
+import PageWrapper from "@/app/components/layout/page-wrapper";
 import { useAuth } from "react-oidc-context";
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';

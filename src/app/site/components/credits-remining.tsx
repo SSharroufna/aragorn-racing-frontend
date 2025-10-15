@@ -1,7 +1,7 @@
-import { Card } from "@/features/components/ui/card";
+import { Card } from "@/app/components/ui/card";
 import {Layers, Calendar1, ShoppingCart} from "lucide-react";
 import Link from "next/link";
-import { Button } from "@/features/components/ui/button";
+import { Button } from "@/app/components/ui/button";
 import React from "react";
 
 const RemainingCredits = () => {

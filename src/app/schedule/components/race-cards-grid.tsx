@@ -3,8 +3,8 @@
 import React, { useState, useMemo } from 'react';
 import {
     Card, CardContent, CardHeader, CardTitle
-} from "@/features/components/ui/card";
-import { Badge } from "@/features/components/ui/badge";
+} from "@/app/components/ui/card";
+import { Badge } from "@/app/components/ui/badge";
 import {
     Trophy, Users, MapPin, Gauge, ChevronLeft, ChevronRight
 } from 'lucide-react';

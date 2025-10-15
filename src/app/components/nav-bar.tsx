@@ -7,8 +7,8 @@ import {
     DropdownMenuContent,
     DropdownMenuItem,
     DropdownMenuTrigger,
-} from "@/features/components/ui/dropdown-menu";
-import { Button } from "@/features/components/ui/button";
+} from "@/app/components/ui/dropdown-menu";
+import { Button } from "@/app/components/ui/button";
 import { User, Crown } from "lucide-react";
 import { useAuth } from "react-oidc-context";
 

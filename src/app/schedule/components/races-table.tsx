@@ -14,9 +14,10 @@ import {
     TableHead,
     TableHeader,
     TableRow,
-} from '@/features/components/ui/table';
+} from '@/app/components/ui/table';
 import { Race } from '@/features/types';
 import { useRouter } from 'next/navigation';
+import { Track } from '@/features/types';
 
 const columns: ColumnDef<Race>[] = [
     {
@@ -58,9 +59,10 @@ const columns: ColumnDef<Race>[] = [
 // Accept races as a prop instead of using hardcoded data
 interface RacesTableProps {
     races: Race[];
+    selectedTrack?: Track;
 }
 
-const RacesTable: React.FC<RacesTableProps> = ({ races }) => {
+const RacesTable: React.FC<RacesTableProps> = ({ races, selectedTrack }) => {
     const router = useRouter();
 
     const table = useReactTable({
@@ -68,6 +70,10 @@ const RacesTable: React.FC<RacesTableProps> = ({ races }) => {
         columns,
         getCoreRowModel: getCoreRowModel(),
     });
+
+    if (!selectedTrack) {
+        return <div className="text-center text-muted-foreground">No track selected.</div>;
+    }
 
     return (
         <Table>
@@ -93,7 +99,6 @@ const RacesTable: React.FC<RacesTableProps> = ({ races }) => {
                         <TableRow
                             key={row.id}
                             className="cursor-pointer hover:bg-gray-100"
-                            onClick={() => router.push(`/track/${row.original.id}`)} // dynamic route
                         >
                             {row.getVisibleCells().map((cell) => (
                                 <TableCell key={cell.id}>
