@@ -5,27 +5,40 @@ import { useParams } from "next/navigation";
 import RaceSidebar from "@/app/site/components/left-sidebar";
 import RaceDetails from "@/app/site/components/race-details";
 import TrackHeader from "@/app/site/components/track-header";
-import RaceInfo from "./components/race-info";
+import RaceInfo from "../components/race-info";
 import PageWrapper from "@/app/components/layout/page-wrapper";
+import TrackSelect from "@/app/schedule/components/track-select";
 
 import { sites } from "@/lib/data";
-import { Race, Track } from "@/features/types";
+import { Race, Track, Site } from "@/features/types";
 
-export default function TrackDetailsPage() {
+export default function SiteDetailsPage() {
     const params = useParams();
-    const trackId = params?.trackId as string;
+    const siteId = params?.siteId as string;
 
-    // 🔍 Find the track from all sites
-    const track: Track | undefined = React.useMemo(() => {
-        for (const site of sites) {
-            const found = site.tracks.find(t => t.id === trackId);
-            if (found) return found;
+    // 🔍 Find the site by ID
+    const site: Site | undefined = React.useMemo(() => {
+        return sites.find(s => s.id === siteId);
+    }, [siteId]);
+
+    // Default selected track (first track)
+    const [selectedTrackId, setSelectedTrackId] = React.useState<string>(
+        site?.tracks[0]?.id ?? ""
+    );
+
+    React.useEffect(() => {
+        if (site?.tracks && site.tracks.length > 0) {
+            setSelectedTrackId(site.tracks[0].id);
         }
-        return undefined;
-    }, [trackId]);
+    }, [site]);
 
-    // Use track races or empty list
-    const races: Race[] = track?.races ?? [];
+    // Selected track object
+    const selectedTrack: Track | undefined = site?.tracks.find(
+        t => t.id === selectedTrackId
+    );
+
+    // All races in selected track
+    const races: Race[] = selectedTrack?.races ?? [];
 
     // Default selected race
     const [selectedRace, setSelectedRace] = React.useState<Race | null>(
@@ -36,11 +49,11 @@ export default function TrackDetailsPage() {
         if (races.length) setSelectedRace(races[0]);
     }, [races]);
 
-    if (!track) {
+    if (!site) {
         return (
             <PageWrapper>
                 <div className="flex items-center justify-center h-[80vh] text-muted-foreground">
-                    Track not found.
+                    Site not found.
                 </div>
             </PageWrapper>
         );
@@ -49,8 +62,17 @@ export default function TrackDetailsPage() {
     return (
         <PageWrapper>
             <div className="flex flex-col gap-6">
-                {/* Breadcrumb / Track Header */}
-                <TrackHeader track={track} />
+                {/* Header */}
+                <TrackHeader site={site} />
+
+                {/* Track Tabs */}
+                {site.tracks && site.tracks.length > 0 && (
+                    <TrackSelect
+                        tracks={site.tracks}
+                        selectedTrackId={selectedTrackId}
+                        onChange={setSelectedTrackId}
+                    />
+                )}
 
                 <div className="flex flex-col md:flex-row gap-6 h-[900px]">
                     {/* Sidebar with race list */}
@@ -60,7 +82,7 @@ export default function TrackDetailsPage() {
                         onSelectRace={setSelectedRace}
                     />
 
-                    {/* Main race details section */}
+                    {/* Main race details */}
                     <div className="flex flex-col gap-4 flex-1">
                         <RaceInfo />
                         {selectedRace ? (

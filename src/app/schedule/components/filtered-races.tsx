@@ -9,20 +9,29 @@ import RacesGrid from "@/app/schedule/components/race-cards-grid";
 import { Eye } from "lucide-react";
 import Image from "next/image";
 import BuyAllDialog from "@/app/site/components/buy-all-races";
-import { Tabs, TabsList, TabsTrigger } from "@/app/components/ui/tabs";
-import { router } from "next/client";
+import TrackSelect from "@/app/schedule/components/track-select";
+import { useRouter } from "next/navigation";
 import { Site } from "@/features/types";
 
 interface FilteredRacesProps {
     selectedSite?: Site;
-    selectedDate: Date;
+    selectedDate?: Date;
 }
 
 export function FilteredRaces({ selectedSite, selectedDate }: FilteredRacesProps) {
+    const router = useRouter();
     const [layout, setLayout] = React.useState<"list" | "grid">("list");
     const [selectedTrackId, setSelectedTrackId] = React.useState<string>(
         selectedSite?.tracks[0]?.id ?? ""
     );
+
+    React.useEffect(() => {
+        if (selectedSite?.tracks && selectedSite.tracks.length > 0) {
+            setSelectedTrackId(selectedSite.tracks[0].id);
+        } else {
+            setSelectedTrackId("");
+        }
+    }, [selectedSite]);
 
     // Find the selected track object
     const selectedTrack = selectedSite?.tracks.find(track => track.id === selectedTrackId);
@@ -51,7 +60,7 @@ export function FilteredRaces({ selectedSite, selectedDate }: FilteredRacesProps
                               const tomorrow = new Date();
                               tomorrow.setDate(today.getDate() + 1);
 
-                              const dateToCheck = selectedDate ?? today; // use today if no date selected
+                              const dateToCheck = selectedDate ?? today;
 
                               const isSameDay = (d1: Date, d2: Date) =>
                                   d1.getFullYear() === d2.getFullYear() &&
@@ -89,22 +98,12 @@ export function FilteredRaces({ selectedSite, selectedDate }: FilteredRacesProps
             </div>
 
             {/* Track Tabs */}
-            {selectedSite.tracks && (
-                <div className="flex items-center gap-2 relative z-10">
-                    <Tabs value={selectedTrackId} onValueChange={setSelectedTrackId}>
-                        <TabsList className="overflow-x-auto whitespace-nowrap no-scrollbar">
-                            {selectedSite.tracks.map(track => (
-                                <TabsTrigger key={track.id} value={track.id}>
-                                    {track.name}
-                                </TabsTrigger>
-                            ))}
-                        </TabsList>
-                    </Tabs>
-
-                    <span className="text-muted-foreground text-sm">
-                        {selectedSite.tracks.length} track{selectedSite.tracks.length > 1 ? "s" : ""} available
-                    </span>
-                </div>
+            {selectedSite?.tracks && (
+                <TrackSelect
+                    tracks={selectedSite.tracks}
+                    selectedTrackId={selectedTrackId}
+                    onChange={setSelectedTrackId}
+                />
             )}
 
             {/* Races Table/Grid */}
@@ -128,7 +127,7 @@ export function FilteredRaces({ selectedSite, selectedDate }: FilteredRacesProps
                         <Button
                             variant="outline"
                             className="flex items-center gap-1 pointer-events-auto"
-                            onClick={() => router.push(`/site`)}
+                            onClick={() => router.push(`/site/${selectedSite.id}`)}
                         >
                             <Eye className="h-4 w-4" />
                             View Entries

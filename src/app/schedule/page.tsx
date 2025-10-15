@@ -5,7 +5,7 @@ import RacesCalendar from "@/app/schedule/components/races-calendar";
 import PageWrapper from "@/app/components/layout/page-wrapper";
 import Stack from "@/app/components/layout/stack";
 import FilterSidebar from "./components/race-filters";
-import SiteSelect from "@/app/schedule/components/track-select";
+import SiteSelect from "@/app/schedule/components/site-select";
 import { FilteredRaces } from "./components/filtered-races";
 import { Search } from "lucide-react";
 import * as React from "react";
@@ -14,7 +14,7 @@ import { Site } from "@/features/types";
 
 export default function RaceSchedule() {
     const [selectedSite, setSelectedSite] = useState<Site>();
-    const [selectedDate, setSelectedDate] = useState<Date | undefined>();
+    const [selectedDate, setSelectedDate] = useState<Date>();
 
     return (
         <PageWrapper>

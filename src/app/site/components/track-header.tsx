@@ -10,14 +10,14 @@ import {
     BreadcrumbPage,
 } from "@/app/components/layout/breadcrumb";
 import BuyAllDialog from "@/app/site/components/buy-all-races";
-import { Button } from "@/app/components/ui/button";
-import type { Track } from "@/features/types";
+
+import type { Site } from "@/features/types";
 
 interface TrackHeaderProps {
-    track: Track;
+    site: Site;
 }
 
-const TrackHeader: React.FC<TrackHeaderProps> = ({ track }) => {
+const TrackHeader: React.FC<TrackHeaderProps> = ({ site }) => {
     return (
         <div>
             {/* Breadcrumb */}
@@ -28,7 +28,7 @@ const TrackHeader: React.FC<TrackHeaderProps> = ({ track }) => {
                         <BreadcrumbSeparator />
                     </BreadcrumbItem>
                     <BreadcrumbItem>
-                        <BreadcrumbPage>{track.name}</BreadcrumbPage>
+                        <BreadcrumbPage>{site.name}</BreadcrumbPage>
                     </BreadcrumbItem>
                 </BreadcrumbList>
             </Breadcrumb>
@@ -37,12 +37,7 @@ const TrackHeader: React.FC<TrackHeaderProps> = ({ track }) => {
             <div className="flex justify-between items-center">
                 <div className="flex items-center gap-4">
                     {/* Track name */}
-                    <h1 className="text-4xl font-extrabold">{track.name}</h1>
-
-                    {/* Races count */}
-                    <span className="text-gray-500 text-sm">
-                        {track.races?.length ?? 0} Races
-                    </span>
+                    <h1 className="text-4xl font-extrabold">{site.name}</h1>
 
                     {/* Date */}
                     <p className="text-md text-gray-500">
@@ -56,9 +51,6 @@ const TrackHeader: React.FC<TrackHeaderProps> = ({ track }) => {
 
                 {/* Actions */}
                 <div className="flex items-center gap-2">
-                    <Button variant="ghost" className="text-xs">
-                        Buy Single Race
-                    </Button>
                     <BuyAllDialog />
                 </div>
             </div>
