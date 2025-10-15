@@ -5,9 +5,9 @@ import { Button } from "@/app/components/ui/button";
 import React from "react";
 
 const RemainingCredits = () => {
-    const trackCardCredits = 5; // Mock Track Card balance
-    const formCredits = 2; // Mock Form balance
-    const isSubscribed = false; // Mock subscription status
+    const trackCardCredits = 5;
+    const formCredits = 2;
+    const isSubscribed = false;
 
     return (
         <Card>
@@ -34,7 +34,7 @@ const RemainingCredits = () => {
                             <Layers className="w-6 h-6 text-white" />
                         </div>
                         <div>
-                            <h4 className="text-md font-semibold text-foreground">Track Card</h4>
+                            <h4 className="text-md font-semibold text-foreground">Full Card</h4>
                         </div>
                     </div>
                     <div className="text-right">
@@ -50,23 +50,23 @@ const RemainingCredits = () => {
                             <Calendar1 className="w-6 h-6 text-white" />
                         </div>
                         <div>
-                            <h4 className="text-md font-semibold text-foreground">Single Race</h4>
+                            <h4 className="text-md font-semibold text-foreground">Single Track</h4>
                         </div>
                     </div>
                     <div className="text-right">
                         <div className="text-2xl font-bold text-primary">{formCredits}</div>
-                        <p className="text-xs text-muted-foreground mt-1">forms remaining</p>
+                        <p className="text-xs text-muted-foreground mt-1">tracks remaining</p>
                     </div>
                 </div>
             </div>
 
             {/* Action Button */}
-            <Link href="/pricing">
-                <Button variant={'outline'} className="w-full mt-4">
-                    <ShoppingCart className="w-6 h-6" />
+            <Button asChild variant={'outline'} className="w-full mt-4 z-20">
+                <Link href="/pricing">
+                    <ShoppingCart className="w-6 h-6 mr-2" />
                     Buy More Credits
-                </Button>
-            </Link>
+                </Link>
+            </Button>
         </Card>
     );
 };

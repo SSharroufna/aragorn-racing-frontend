@@ -1,108 +1,154 @@
+"use client";
+
 import React from "react";
+import Image from "next/image";
+import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/app/components/ui/card";
 import { Badge } from "@/app/components/ui/badge";
-import { Heart, MapPin } from "lucide-react";
-import { Clock, Calendar, Trophy } from "lucide-react";
 import { Button } from "@/app/components/ui/button";
+import { Clock, Calendar, Trophy } from "lucide-react";
 
-// Mock data for recent purchases
+// Mock data
 const recentPurchases = [
     {
         id: 1,
-        raceName: "Santa Anita Derby",
-        track: "Santa Anita Park",
-        date: "2025-10-05",
+        track: "PFL Park",
+        site: "Photo Finish Live",
+        siteId: "photo-finish",
+        date: "2025-10-15",
         time: "3:00 PM",
         purse: 750000,
-        purchased: "2025-10-02"
+        logo: "/photo-finish.png",
     },
     {
         id: 2,
-        raceName: "Belmont Stakes",
-        track: "Belmont Park",
-        date: "2025-10-08",
-        time: "5:30 PM",
-        purse: 1500000,
-        purchased: "2025-10-01"
+        track: "Main Street Track",
+        site: "Photo Finish Live",
+        siteId: "photo-finish",
+        date: "2025-10-16",
+        time: "4:00 PM",
+        purse: 1000000,
+        logo: "/photo-finish.png",
     },
     {
         id: 3,
-        raceName: "Kentucky Derby Prep",
-        track: "Churchill Downs",
-        date: "2025-10-12",
-        time: "4:15 PM",
-        purse: 600000,
-        purchased: "2025-09-28"
+        track: "Digital Downs Main Track",
+        site: "Digital Downs",
+        siteId: "digital-downs",
+        date: "2025-10-16",
+        time: "5:30 PM",
+        purse: 1500000,
+        logo: "/digital-downs.png",
     },
 ];
 
-// Calculate days until race
+// Format date as "Oct 15"
+const formatDate = (dateStr: string) => {
+    const date = new Date(dateStr);
+    return date.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" });
+};
+
+// Utility: Calculate days until race
 const getDaysUntil = (dateStr: string) => {
     const raceDate = new Date(dateStr);
     const today = new Date();
     const diffTime = raceDate.getTime() - today.getTime();
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    return diffDays;
+    return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+};
+
+// Utility: Tag label + subtle color
+const getDayTag = (daysUntil: number) => {
+    if (daysUntil === 0) return { label: "Today", color: "bg-primary/10 text-primary border-primary/30" };
+    if (daysUntil === 1) return { label: "Tomorrow", color: "bg-accent/10 text-accent border-accent/30" };
+    if (daysUntil > 1) return { label: `In ${daysUntil} days`, color: "bg-muted/20 text-muted-foreground border-muted/30" };
+    return { label: "Past", color: "bg-background/30 text-muted-foreground border-muted/20" };
 };
 
 export default function RecentPurchases() {
+    // Group tracks by site
+    const groupedBySite = recentPurchases.reduce((acc: any, curr) => {
+        if (!acc[curr.siteId]) acc[curr.siteId] = { ...curr, tracks: [] };
+        acc[curr.siteId].tracks.push(curr);
+        return acc;
+    }, {});
+
+    const groupedArray = Object.values(groupedBySite);
+
     return (
         <Card>
             <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-xl">
                     <Clock className="w-6 h-6 text-primary" />
-                    Purchased Racing Forms
+                    <h1 className="text-black">Your Purchased Tracks</h1>
                 </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-3">
-                {recentPurchases.map((purchase) => {
-                    const daysUntil = getDaysUntil(purchase.date);
-                    const isUpcoming = daysUntil >= 0;
+
+            <CardContent className="space-y-4">
+                {groupedArray.map((site: any) => {
+                    const trackCount = site.tracks.length;
+                    const firstTrack = site.tracks[0];
+                    const daysUntil = getDaysUntil(firstTrack.date);
+                    const tag = getDayTag(daysUntil);
 
                     return (
                         <div
-                            key={purchase.id}
-                            className="p-4 rounded-xl border-2 border-primary/20 hover:border-primary/40 bg-gradient-to-br from-background to-primary/5 transition-all duration-300 hover:shadow-md"
+                            key={site.siteId}
+                            className="relative p-6 rounded-xl border-2 border-primary/20 hover:border-primary/40 bg-gradient-to-br from-background to-primary/5 transition-all duration-300 hover:shadow-md"
                         >
+                            {/* Header */}
                             <div className="flex items-start justify-between mb-3">
-                                <div className="flex-1">
-                                    <h4 className="font-bold text-lg text-foreground mb-1">
-                                        {purchase.raceName}
-                                    </h4>
-                                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                                        <MapPin className="w-4 h-4 text-primary" />
-                                        <span className="font-medium">{purchase.track}</span>
+                                <div className="flex gap-2 items-center">
+                                    <Image
+                                        src={site.logo}
+                                        alt={`${site.site} logo`}
+                                        width={72}
+                                        height={72}
+                                        className="rounded-md object-contain"
+                                    />
+                                    <div className={'flex gap-2 items-center'}>
+                                        <h4 className="font-bold text-lg text-foreground">{site.site}</h4>
+                                        {trackCount > 1 && <p className="text-sm text-muted-foreground">{trackCount} Tracks</p>}
                                     </div>
                                 </div>
-                                {isUpcoming && (
-                                    <Badge className="bg-accent/20 text-foreground border-accent/40 font-semibold">
-                                        {daysUntil === 0 ? "Today" : daysUntil === 1 ? "Tomorrow" : `${daysUntil} days`}
-                                    </Badge>
-                                )}
+
+                                <Badge className={`${tag.color} font-semibold border transition-colors duration-200`}>
+                                    {tag.label}
+                                </Badge>
                             </div>
 
-                            <div className="grid grid-cols-2 gap-3 text-sm">
-                                <div className="flex items-center gap-2">
-                                    <Calendar className="w-4 h-4 text-primary" />
-                                    <span className="font-medium">{purchase.date}</span>
-                                </div>
-                                <div className="flex items-center gap-2">
-                                    <Clock className="w-4 h-4 text-primary" />
-                                    <span className="font-medium">{purchase.time}</span>
-                                </div>
-                                <div className="flex items-center gap-2 col-span-2">
-                                    <Trophy className="w-4 h-4 text-accent" />
-                                    <span className="font-bold text-accent">
-                                                    ${purchase.purse.toLocaleString()}
-                                                </span>
-                                </div>
+                            {/* Table Header */}
+                            <div className="grid grid-cols-3 text-sm font-semibold text-muted-foreground border-b border-gray-300 pb-1">
+                                <div>Track</div>
+                                <div>Date</div>
+                                <div>Purse</div>
                             </div>
 
-                            <Button
-                                className="w-full mt-3 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold"
-                                size="sm"
-                            >
-                                View Race Form
+                            {/* Tracks Table */}
+                            <div className="space-y-1">
+                                {site.tracks.map((track: any, index: number) => {
+                                    const rowBg = index % 2 === 0 ? "bg-white" : "bg-gray-100";
+                                    return (
+                                        <div key={track.id} className={`grid grid-cols-3 items-center text-sm p-2 rounded ${rowBg}`}>
+                                            <div className="flex items-center gap-2">
+                                                <Trophy className="w-4 h-4 text-primary" />
+                                                <span>{track.track}</span>
+                                            </div>
+                                            <div className="flex items-center gap-2">
+                                                <Calendar className="w-4 h-4 text-primary" />
+                                                <span>{formatDate(track.date)}</span>
+                                            </div>
+                                            <div className="flex items-center gap-2">
+                                                <Trophy className="w-4 h-4 text-primary" />
+                                                <span>${track.purse.toLocaleString()}</span>
+                                            </div>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+
+                            {/* Button */}
+                            <Button asChild size="sm" className="w-full mt-4">
+                                <Link href={`/site/${site.siteId}`}>View Site Details</Link>
                             </Button>
                         </div>
                     );
